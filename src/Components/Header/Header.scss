@@ -1,0 +1,19 @@
+header.main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0 15px 15px;
+    .logo{
+      display: block;
+      width: 88px;
+      height: auto;
+    }
+    nav{
+      display: flex;
+      button,a{
+        display: block;
+        padding:15px;
+        margin:0;
+      }
+    }
+  }

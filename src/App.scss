@@ -1,0 +1,24 @@
+@import './scss/Variables.scss';
+
+body {
+  margin: 0;
+  font-family: $fontStack;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*{
+  box-sizing: border-box;
+}
+button, input[type=submit]{
+  font-family: $fontStack;
+  font-size: 16px;
+}
+
+.icon-button{
+  border:0;
+  background: transparent;
+}
+
+@import './Components/Header/Header.scss';
+@import './Components/GoalList/GoalList.scss';
