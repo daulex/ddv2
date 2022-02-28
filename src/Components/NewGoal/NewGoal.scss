@@ -1,0 +1,57 @@
+.newgoal{
+    h1{
+        @include heading;
+        display: block;
+        padding: 0 15px 15px;
+    }
+    .field{
+        padding: 0 15px 15px;
+        label, input.field__text{
+            display: block;
+            width: 100%;
+        }
+        &__label{
+            font-weight: 400;
+            font-size: 14px;
+            padding-bottom: 5px;
+        }
+        input.field__text{
+            height: 50px;
+            border: none;
+            background: #eee;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    .goal-type__option + .goal-type__option{
+        padding-top: 15px;
+    }
+    
+    .goal-type__option{
+        display: flex;
+        input{
+            margin-right: 15px;
+        }
+        strong{
+            display: block;
+            padding-bottom: 5px;
+        }
+    }
+    .form-footer{
+        padding: 15px;
+        input{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+            display: block;
+            color: #FFFFFF;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            background: #333;
+        }
+    }
+}

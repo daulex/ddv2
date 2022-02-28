@@ -19,6 +19,12 @@ button, input[type=submit]{
   border:0;
   background: transparent;
 }
-
+#root{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
 @import './Components/Header/Header.scss';
 @import './Components/GoalList/GoalList.scss';
+@import './Components/GoalList/GoalList.scss';
+@import './Components/NewGoal/NewGoal.scss';
