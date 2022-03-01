@@ -10,7 +10,8 @@
     }
     .goal{
         padding-top: 15px;
-        button{
+        & > button, & > a{
+            text-decoration: none;
             padding: 15px;
             border:none;
             height: 50px;
@@ -20,9 +21,11 @@
             font-weight: 600;
             align-items: center;
             background: #eee;
+            color: #000;
             .today{
                 font-weight: 400;
                 font-size: 11px;
+                text-align: center;
                 .count{
                     display: block;
                     font-size: 16px;

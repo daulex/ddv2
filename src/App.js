@@ -9,6 +9,7 @@ import './App.scss';
 import {Header} from './Components/Header/Header';
 import {GoalList} from './Components/GoalList/GoalList';
 import {NewGoal} from './Components/NewGoal/NewGoal';
+import {RecordGoal} from "./Components/RecordGoal/RecordGoal";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GoalList />} />
           <Route path="new-goal" element={<NewGoal />} />
+          <Route path="/record/:recordId" element={<RecordGoal />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,53 @@
+.record-goal{
+    h1{
+        @include heading;
+        display: block;
+        padding: 0 15px 15px;
+    }
+
+    .field,&__title-row{
+        padding: 0 15px 15px;
+        label, input.field__text{
+            display: block;
+            width: 100%;
+        }
+        &__label,.label{
+            display: block;
+            font-weight: 400;
+            font-size: 14px;
+            padding-bottom: 5px;
+        }
+        
+        input.field__text,.title{
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: #eee;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .title{
+            background: #f7f7f7;
+            padding-top: 13px;
+        }
+    }
+
+    .form-footer{
+        padding: 15px;
+        input{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+            display: block;
+            color: #FFFFFF;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            background: #333;
+        }
+    }
+}

@@ -1,21 +1,23 @@
-export const DailyGoals = (props) => {
+import {NavLink} from "react-router-dom";
+
+export const DailyGoals = () => {
     return (
-      <section className="goallist__daily">
+    <section className="goallist__daily">
           <h2>Daily goals</h2>
           <section className="in-progress">
               <div className="goal simple">
-                  <button>
-                      <span className="goal__title">Daily duolingo streak</span>
-                  </button>
+                <NavLink to="/">
+                    <span className="goal__title">Daily duolingo streak</span>
+                </NavLink>
               </div>
               <div className="goal custom">
-                  <button>
+                <NavLink to="/record/2">
                       <span className="goal__title">Push-ups</span>
                       <div className="today">
                           <span className="count">15</span>
                           today
                       </div>
-                  </button>
+                </NavLink>
               </div>
           </section>
           <section className="complete">
