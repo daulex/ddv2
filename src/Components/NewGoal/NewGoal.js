@@ -1,10 +1,25 @@
 import React, {useState} from "react";
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 
-export const NewGoal = (props) => {
-  const { register, getValues, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
+export const NewGoal = () => {
+  const { register, getValues, handleSubmit, formState: {errors} } = useForm();
+  const onSubmit = data => {
+    console.log(data);
+    console.log(errors);
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Authorization': 'Bearer ' + token
+    };
+    axios.post(
+        process.env.REACT_APP_DDAPI + "goal",
+        { data },
+        { headers }
+        ).then(res => {
+          console.log(res);
+    });
+  };
+
   const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
   const showHideRepetitionsGoal = () => {
     if(getValues('goal_type') === "Custom repetitions"){

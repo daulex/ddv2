@@ -6,7 +6,6 @@ export const RecordGoal = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = data => console.log(data);
   const {recordId} = useParams();
-  console.log(recordId);
 
   return (
     <section className="record-goal">

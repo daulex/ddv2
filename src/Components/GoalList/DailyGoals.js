@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 export const DailyGoals = () => {
     return (
     <section className="goallist__daily">
-          <h2>Daily goals</h2>
+          <h1>Daily goals</h1>
           <section className="in-progress">
               <div className="goal simple">
                 <NavLink to="/">

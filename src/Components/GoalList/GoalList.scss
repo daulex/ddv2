@@ -1,9 +1,8 @@
 .goallist{
     padding-left: 15px;
     padding-right: 15px;
-    h2{
-        font-size: 14px;
-        margin: 0;
+    h1{
+        @include heading;
     }
     section.complete{
         padding-top: 15px;

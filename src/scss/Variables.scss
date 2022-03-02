@@ -3,9 +3,11 @@ $fontStack: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 sans-serif;
 
 @mixin heading{
-    font-weight: 700px;
+    font-weight: 700;
     font-size: 14px;
     color: #000;
+    display: block;
+    margin: 0;
 }
 
 $blue: #0d82df;
