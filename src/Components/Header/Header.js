@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
 import logo from '../../dailyDo.svg';
 import {Icon} from "../IcoMoon/Icon";
 import { Context } from "../Auth/UserContext";
-// import {useState} from "react";
 
 export const Header = () => {
 

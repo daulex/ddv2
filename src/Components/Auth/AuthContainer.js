@@ -1,102 +1,106 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import AuthMenu from './AuthMenu';
 import { AuthForm } from './AuthForm';
 import { payloadMaker } from "../../utilities";
+import {Context} from "./UserContext";
 
-export default class AuthContainer extends React.Component{
-    constructor(props){
-        super(props);
+const AuthContainer = (props) => {
 
-        this.state = { 
-            action: this.props.action ?? "login",
-            errors: [],
-            success_message: false,
-            processing: false
-        };
+    const [activeUser, setActiveUser] = useContext(Context);
+    if(activeUser){
+        window.location = "/";
+    }
+    const [action, setAction] = useState(props.action ?? "login" );
+    const [errors, setErrors] = useState([] );
+    const [successMessage, setSuccessMessage] = useState(false );
+    const [processing, setProcessing] = useState(false );
 
-        this.actions = {
-            login: {
-                name: "login",
-                title: "Log in",
-                buttonLabel: "Log in",
-                inputs: ["email", "password"]
-            },
-            register: {
-                name: "register",
-                title: "Register",
-                buttonLabel: "Register",
-                inputs: ["email", "password", "password_confirm"]
-            },
-            recover: {
-                name: "recover",
-                title: "Recover",
-                buttonLabel: "Request reset link",
-                inputs: ["email"]
-            },
-            reset: {
-                name: "reset",
-                title: "Reset",
-                buttonLabel: "Reset password",
-                inputs: ["reset_email", "reset_token", "password", "password_confirm"]
-            },
-            verify: {
-                name: "verify",
-                title: "Verify",
-                buttonLabel: "Verify email",
-                inputs: ["verify_email"]
-            }
+
+    const actions = {
+        login: {
+            name: "login",
+            title: "Log in",
+            buttonLabel: "Log in",
+            inputs: ["email", "password"]
+        },
+        register: {
+            name: "register",
+            title: "Register",
+            buttonLabel: "Register",
+            inputs: ["email", "password", "password_confirm"]
+        },
+        recover: {
+            name: "recover",
+            title: "Recover",
+            buttonLabel: "Request reset link",
+            inputs: ["email"]
+        },
+        reset: {
+            name: "reset",
+            title: "Reset",
+            buttonLabel: "Reset password",
+            inputs: ["reset_email", "reset_token", "password", "password_confirm"]
+        },
+        verify: {
+            name: "verify",
+            title: "Verify",
+            buttonLabel: "Verify email",
+            inputs: ["verify_email"]
         }
-
-        this.inputs = {
-            email: {
-                name: "email",
-                type: "email",
-                label: "Email",
-                placeholder: "name@example.com"
-            },
-            reset_email: {
-                name: "reset_email",
-                type: "text",
-                label: "Reset email",
-                disabled: "disabled"
-            },
-            verify_email: {
-                name: "verify_email",
-                type: "text",
-                label: "Verify email",
-                disabled: "disabled"
-            },
-            reset_token: {
-                name: "key",
-                type: "key",
-                label: "Key",
-                disabled: "disabled"
-            },
-            password: {
-                name: "password",
-                type: "password",
-                label: "Password",
-                placeholder: "Password"
-            },
-            password_confirm: {
-                name: "password_confirm",
-                type: "password",
-                label: "Confirm password",
-                placeholder: "Confirm password"
-            }
-        }
-
-        this.processAuth = this.processAuth.bind(this);
     }
 
-    setCurrentAction = (action) => {
-        this.setState({action: action, success_message: false, processing: false});
+    const inputs = {
+        email: {
+            name: "email",
+            type: "email",
+            label: "Email",
+            placeholder: "name@example.com"
+        },
+        reset_email: {
+            name: "reset_email",
+            type: "text",
+            label: "Reset email",
+            disabled: "disabled"
+        },
+        verify_email: {
+            name: "verify_email",
+            type: "text",
+            label: "Verify email",
+            disabled: "disabled"
+        },
+        reset_token: {
+            name: "key",
+            type: "key",
+            label: "Key",
+            disabled: "disabled"
+        },
+        password: {
+            name: "password",
+            type: "password",
+            label: "Password",
+            placeholder: "Password"
+        },
+        password_confirm: {
+            name: "password_confirm",
+            type: "password",
+            label: "Confirm password",
+            placeholder: "Confirm password"
+        }
     }
 
-    processAuth = (data, forceAction = "none") => {
-        this.setState({processing: true})
 
-        if(this.state.action === "login" || forceAction === "login"){
+
+
+    const setCurrentAction = (action) => {
+            setAction(action);
+            setSuccessMessage(false);
+            setProcessing(false);
+    }
+
+    const processAuth = (data, forceAction = "none") => {
+        setProcessing(true);
+
+        if(action === "login" || forceAction === "login"){
 
             const authUrl = process.env.REACT_APP_DDAPI_DOMAIN + 'wp-json/jwt-auth/v1/token';
             const body = {
@@ -109,13 +113,15 @@ export default class AuthContainer extends React.Component{
                 .then(response => {
                     if(typeof response.token !== 'undefined'){
                         localStorage.setItem('token', response.token);
-
+                        setActiveUser(response.token);
+                        window.history.pushState('dailyDo', '','/');
                     }else{
-                        this.setState({errors: ['Something went wrong, please try again'], processing: false});
+                        setErrors(['Something went wrong, please try again']);
+                        setProcessing(false);
                     }
                 });
 
-        }else if(this.state.action === "recover"){
+        }else if(action === "recover"){
 
             const url = process.env.REACT_APP_DDAPI + 'reset-password/' + data[0];
 
@@ -125,9 +131,9 @@ export default class AuthContainer extends React.Component{
                     // console.log("req sent");
                 });
 
-            this.setState({success_message: "Password reset link will be sent shortly."});
+            setSuccessMessage("Password reset link will be sent shortly.");
 
-        }else if(this.state.action === "verify"){
+        }else if(action === "verify"){
 
             const url = process.env.REACT_APP_DDAPI + 'verify-email/';
             const body = {
@@ -139,16 +145,17 @@ export default class AuthContainer extends React.Component{
                 .then(response => {
 
                     if (parseInt(response)) {
-                        this.setState({success_message: "Email verified... Redirecting."});
+                        setSuccessMessage("Email verified... Redirecting.");
                         setTimeout(function(){window.location = "/";}, 300);
                     } else {
-                        this.setState({errors: ['Something went wrong. Please try again. '], processing: false});
+                        setErrors(['Something went wrong, please try again']);
+                        setProcessing(false);
                     }
                 });
 
 
 
-        }else if(this.state.action === "reset") {
+        }else if(action === "reset") {
 
             const authUrl = process.env.REACT_APP_DDAPI + 'reset-password/';
             const body = {
@@ -161,12 +168,13 @@ export default class AuthContainer extends React.Component{
                 .then(res => res.json())
                 .then(response => {
                     if (parseInt(response)) {
-                        this.processAuth([data[0], data[2]], "login");
+                        processAuth([data[0], data[2]], "login");
                     } else {
-                        this.setState({errors: ['Something went wrong. Please try again. '], processing: false});
+                        setErrors(['Something went wrong, please try again']);
+                        setProcessing(false);
                     }
                 });
-        }else if(this.state.action === "register"){
+        }else if(action === "register"){
             const regUrl = process.env.REACT_APP_DDAPI + 'register/';
             const body = {
                 username: data[0],
@@ -177,28 +185,28 @@ export default class AuthContainer extends React.Component{
                 .then(res => res.json())
                 .then(response => {
                     if (parseInt(response)) {
-                        this.processAuth([data[0], data[1]], "login");
+                        processAuth([data[0], data[1]], "login");
                     } else {
-                        this.setState({errors: ['Something went wrong. Please try again. '], processing: false});
+                        setErrors(['Something went wrong, please try again']);
+                        setProcessing(false);
                     }
                 });
         }
     }
 
-    render(){
-        const submitLabel = this.actions[this.state.action].buttonLabel;
-        const inputList = this.actions[this.state.action].inputs;
 
-        return(
-            <div className="auth-wrap">
-                {!['reset','verify'].includes(this.state.action)  &&
-                <AuthMenu setCurrentAction={this.setCurrentAction} action={this.state.action} actions={this.actions} />
-                }
-                {this.state.success_message ? <div className="alert alert-primary my-3">{this.state.success_message}</div> :
-                <AuthForm errors={this.state.errors} processAuth={this.processAuth} action={this.state.action} inputs={this.inputs} inputList={inputList} submitLabel={submitLabel} processing={this.state.processing} />
-                }
-            </div>
-        );
-    }
+    const submitLabel = actions[action].buttonLabel;
+    const inputList = actions[action].inputs;
 
+    return(
+        <div className="auth-wrap">
+            {!['reset','verify'].includes(action)  &&
+            <AuthMenu setCurrentAction={setCurrentAction} action={action} actions={actions} />
+            }
+            {successMessage ? <div className="alert alert-primary my-3">{successMessage}</div> :
+            <AuthForm errors={errors} processAuth={processAuth} action={action} inputs={inputs} inputList={inputList} submitLabel={submitLabel} processing={processing} />
+            }
+        </div>
+    );
 }
+export default AuthContainer;
