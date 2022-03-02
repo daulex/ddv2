@@ -68,6 +68,9 @@
     }
     &__weekly{
         padding-top: 30px;
+        h2{
+            @include heading;
+        }
     }
     
 }
