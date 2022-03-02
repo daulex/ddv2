@@ -43,8 +43,6 @@ function App() {
         <div className="App">
           <Header />
 
-          <h1>active user: {activeUser}</h1>
-
 
           <Routes>
             <Route path="/" element={<GoalList />} />

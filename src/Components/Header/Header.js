@@ -10,6 +10,8 @@ export const Header = () => {
     const logOut = () => {
         localStorage.removeItem('token');
         setActiveUser(false);
+        window.history.pushState('dailyDo', '','/');
+        window.location.reload();
     }
 
     return (

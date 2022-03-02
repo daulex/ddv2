@@ -1,15 +1,18 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
+import {Context} from "../Auth/UserContext";
 
 export const NewGoal = () => {
   const { register, getValues, handleSubmit, formState: {errors} } = useForm();
+  const [activeUser] = useContext(Context);
+
   const onSubmit = data => {
     console.log(data);
     console.log(errors);
-    const token = localStorage.getItem('token');
+
     const headers = {
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + activeUser
     };
     axios.post(
         process.env.REACT_APP_DDAPI + "goal",
