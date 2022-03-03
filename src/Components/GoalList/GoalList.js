@@ -14,7 +14,6 @@ export const GoalList = (props) => {
             process.env.REACT_APP_DDAPI + "goal",
             { headers }
         ).then(res => {
-            console.log(JSON.parse(res.data));
             setGoals( JSON.parse(res.data) );
         });
     }, [activeUser]);

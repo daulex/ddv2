@@ -8,7 +8,7 @@ import {
 import './App.scss';
 import {Header} from './Components/Header/Header';
 import {GoalList} from './Components/GoalList/GoalList';
-import {NewGoal} from './Components/NewGoal/NewGoal';
+import {GoalForm} from './Components/GoalForm/GoalForm';
 import {RecordGoal} from "./Components/RecordGoal/RecordGoal";
 import AuthContainer from './Components/Auth/AuthContainer';
 import {Context}    from './Components/Auth/UserContext.js';
@@ -42,11 +42,10 @@ function App() {
       <Context.Provider  value={[activeUser, setActiveUser]}>
         <div className="App">
           <Header />
-
-
           <Routes>
             <Route path="/" element={<GoalList />} />
-            <Route path="new-goal" element={<NewGoal />} />
+            <Route path="new-goal" element={<GoalForm />} />
+            <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />
           </Routes>
         </div>

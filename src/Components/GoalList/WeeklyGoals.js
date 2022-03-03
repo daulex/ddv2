@@ -4,7 +4,7 @@ export const WeeklyGoals = (props) => {
     const getWeeklyValue = (goal) => {
         const a = "?";
         const b = goal.goal_type === "Simple" ? "7" : goal.weekly_repetitions_goal;
-        console.log(goal);
+
         return `${a}/${b}`;
     }
     const getCompletionWidth = (goal) => {
@@ -13,25 +13,25 @@ export const WeeklyGoals = (props) => {
     return (
       <section className="goallist__weekly">
           <h2>Weekly goals</h2>
-          <section className="in-progress">
+          <div className="in-progress">
               {props.goals.map(goal => (
                   <div className="goal weekly" key={goal.ID}>
-                      <NavLink to={"/goal/" + goal.ID}>
+                      <NavLink to={"/goal/edit/" + goal.ID}>
                           <span className="goal__title">{goal.title}</span>
                           <span className="weekly__progress">{getWeeklyValue(goal)}</span>
-                          <span className="weekly__bar" style={{width: getCompletionWidth(goal)}}></span>
+                          <span className="weekly__bar" style={{width: getCompletionWidth(goal)}} />
                       </NavLink>
                   </div>
               ))}
-          </section>
-          <section className="complete">
+          </div>
+          <div className="complete">
              <div className="goal weekly complete">
                   <button>
                       <span className="goal__title">Daily todo lists</span>
                       <span className="weekly__progress">7/7</span>
                   </button>
               </div>
-          </section>
+          </div>
       </section>
     );
   }

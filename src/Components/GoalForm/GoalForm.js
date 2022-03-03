@@ -1,29 +1,79 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import {Context} from "../Auth/UserContext";
+import {useParams} from "react-router-dom";
 
-export const NewGoal = () => {
-  const { register, getValues, handleSubmit, formState: {errors} } = useForm();
+export const GoalForm = () => {
+  const {goalId} = useParams();
+  const { register, getValues, handleSubmit, reset } = useForm();
   const [activeUser] = useContext(Context);
 
-  const onSubmit = data => {
-    console.log(data);
-    console.log(errors);
+  const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
+  const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
 
+  let form = {
+    headers: {'Authorization': 'Bearer ' + activeUser},
+    submit: "Submit"
+  };
+  if(typeof goalId !== 'undefined'){
+    form.title = "Edit goal";
+    form.type = "edit";
+    form.method = "put";
+    form.submit = "Update goal";
+    form.url = process.env.REACT_APP_DDAPI + "goal/" + goalId;
+  }else{
+    form.title = "New goal";
+    form.type = "new";
+    form.method = "post";
+    form.submit = "Create goal";
+    form.url = process.env.REACT_APP_DDAPI + "goal";
+  }
+
+  const [submitButton, setSubmitButton] = useState(form.submit);
+
+  useEffect(() => {
+
+    if(form.type === "edit"){
+      axios({
+        method: 'get',
+        url: form.url,
+        headers: form.headers
+      }).then(res => {
+        const data = JSON.parse(res.data);
+        reset({
+          title: data.title,
+          title_weekly: data.title_weekly,
+          goal_type: data.goal_type,
+          weekly_repetitions_goal: data.weekly_repetitions_goal
+        });
+        if(data.goal_type !== "Simple"){
+          setWeeklyRepetitionsShowing(true);
+        }
+      });
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onSubmit = data => {
+    setSubmitButtonIsActive(false);
+    setSubmitButton("Saving");
     const headers = {
       'Authorization': 'Bearer ' + activeUser
     };
-    axios.post(
-        process.env.REACT_APP_DDAPI + "goal",
-        { data },
-        { headers }
-        ).then(res => {
-          console.log(res);
+
+    axios({
+          method: form.method,
+          url: form.url,
+          data: data,
+          headers: headers
+        }).then(res => {
+          if(res.data === 200 && res.status === 200){
+            window.location.assign("/");
+          }
     });
   };
 
-  const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
+
   const showHideRepetitionsGoal = () => {
     if(getValues('goal_type') === "Custom repetitions"){
       setWeeklyRepetitionsShowing(true);
@@ -33,8 +83,9 @@ export const NewGoal = () => {
   }
 
   return (
-    <section className="newgoal">
-      <h1>New goal</h1>
+    <section className="goal-form">
+      <h1>{form.title}</h1>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="field">
           <label className="field__label" htmlFor="title">Daily title</label>
@@ -69,9 +120,10 @@ export const NewGoal = () => {
         }
 
         <div className="form-footer">
-          <input type="submit" value="Create goal" />
+          <input type="submit" disabled={!submitButtonIsActive} value={submitButton} />
         </div>
       </form>
+
     </section>
   );
 }
