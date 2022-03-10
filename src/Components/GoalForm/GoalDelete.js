@@ -20,7 +20,6 @@ export const GoalDelete = (props) => {
             url: process.env.REACT_APP_DDAPI + "goal/" + props.goalId,
             headers: headers
         }).then(res => {
-            console.log(res.data);
             if(res.data === 200 && res.status === 200){
                 window.location.assign("/");
             }
