@@ -1,0 +1,20 @@
+.goal-delete{
+  padding: 15px;
+  &__trigger button{
+    @include button;
+    background: $text_strong;
+    color: $white;
+  }
+  &__confirmation{
+    display: flex;
+    padding: 0 15px;
+    height: $buttonHeight;
+    border: 1px solid $text_strong;
+    color: $text_strong;
+    justify-content: center;
+    align-items: center;
+    span, button{
+      margin: 7px;
+    }
+  }
+}

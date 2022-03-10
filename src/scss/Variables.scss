@@ -1,13 +1,25 @@
 $fontStack: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif;
-
+$buttonHeight: 53px;
 @mixin heading{
     font-weight: 700;
     font-size: 14px;
     color: #000;
     display: block;
     margin: 0;
+}
+@mixin button{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: $buttonHeight;
+    border: 0;
+    padding: 15px;
 }
 
 $blue: #0d82df;

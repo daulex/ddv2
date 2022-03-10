@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import {Context} from "../Auth/UserContext";
 import {useParams} from "react-router-dom";
+import {GoalDelete} from "./GoalDelete";
 
 export const GoalForm = () => {
   const {goalId} = useParams();
@@ -123,7 +124,7 @@ export const GoalForm = () => {
           <input type="submit" disabled={!submitButtonIsActive} value={submitButton} />
         </div>
       </form>
-
+      {form.type === "edit" && <GoalDelete goalId={goalId} />}
     </section>
   );
 }

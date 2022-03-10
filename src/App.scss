@@ -30,5 +30,6 @@ input[disabled]{
 @import './Components/Header/Header.scss';
 @import './Components/GoalList/GoalList.scss';
 @import './Components/GoalList/GoalList.scss';
-@import 'Components/GoalForm/GoalForm';
+@import './Components/GoalForm/GoalForm';
+@import './Components/GoalForm/GoalDelete';
 @import './Components/RecordGoal/RecordGoal.scss';
