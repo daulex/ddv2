@@ -17,7 +17,7 @@ export const WeeklyGoals = (props) => {
               {props.goals.map(goal => (
                   <div className="goal weekly" key={goal.ID}>
                       <NavLink to={"/goal/edit/" + goal.ID}>
-                          <span className="goal__title">{goal.title}</span>
+                          <span className="goal__title">{goal.title_weekly}</span>
                           <span className="weekly__progress">{getWeeklyValue(goal)}</span>
                           <span className="weekly__bar" style={{width: getCompletionWidth(goal)}} />
                       </NavLink>

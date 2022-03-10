@@ -19,7 +19,7 @@ export const GoalList = (props) => {
     }, [activeUser]);
   return (
     <section className="goallist">
-        <DailyGoals />
+        <DailyGoals goals={goals} />
         <WeeklyGoals goals={goals} />
     </section>
   );

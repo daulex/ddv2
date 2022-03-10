@@ -13,7 +13,7 @@ export const RecordGoal = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="record-goal__title-row">
           <span className="label">Add repetitions to goal</span>
-          <span className="title">Push-ups</span>
+          <span className="title">[tbd] dummy</span>
         </div>
         <div className="field">
           <label className="field__label" htmlFor="amount">Amount to add</label>
