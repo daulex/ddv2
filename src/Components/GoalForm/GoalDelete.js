@@ -10,7 +10,6 @@ export const GoalDelete = (props) => {
         setShowConfirm(!showConfirm);
     }
     const runDelete = () => {
-        console.log(`should delete ${props.goalId}`)
         const headers = {
             'Authorization': 'Bearer ' + activeUser
         };

@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import {ButtonGoalRecordSimple} from "./ButtonGoalRecordSimple";
 
 export const DailyGoals = (props) => {
     return (
@@ -8,9 +9,7 @@ export const DailyGoals = (props) => {
               {props.goals.map(goal => (
                   <div className={"goal " + goal.goal_type.toLowerCase()[0]} key={goal.ID}>
                       {goal.goal_type === "Simple" ?
-                          <button>
-                              <span className="goal__title">{goal.title}xxxx</span>
-                          </button>
+                          <ButtonGoalRecordSimple goal={goal} />
                           :
                           <NavLink to={"/record/" + goal.ID}>
                               <span className="goal__title">{goal.title}</span>
