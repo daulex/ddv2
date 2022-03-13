@@ -1,26 +1,21 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
-import {Context} from "../Auth/UserContext";
+import { useNavigate } from "react-router-dom";
 
 
 export const GoalDelete = (props) => {
-    const [activeUser] = useContext(Context);
     const [showConfirm, setShowConfirm] = useState(false);
+    const navigate = useNavigate();
     const toggleConfirm = () => {
         setShowConfirm(!showConfirm);
     }
     const runDelete = () => {
-        const headers = {
-            'Authorization': 'Bearer ' + activeUser
-        };
-
         axios({
             method: 'delete',
-            url: process.env.REACT_APP_DDAPI + "goal/" + props.goalId,
-            headers: headers
+            url: process.env.REACT_APP_DDAPI + "goal/" + props.goalId
         }).then(res => {
             if(res.data === 200 && res.status === 200){
-                window.location.assign("/");
+                navigate('/');
             }
         });
     }

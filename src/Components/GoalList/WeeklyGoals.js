@@ -2,14 +2,17 @@ import {NavLink} from "react-router-dom";
 
 export const WeeklyGoals = (props) => {
     const getWeeklyValue = (goal) => {
-        const a = "?";
+        const a = goal.weekly_total;
         const b = goal.goal_type === "Simple" ? "7" : goal.weekly_repetitions_goal;
 
         return `${a}/${b}`;
     }
     const getCompletionWidth = (goal) => {
-        return Math.floor(Math.random()*100) + "%";
+        const x100 = parseInt(goal.weekly_total) * 100;
+        const weeklyGoal = goal.goal_type === "Simple" ? 7 : parseInt(goal.weekly_repetitions_goal);
+        return Math.floor( x100 / weeklyGoal) + "%";
     }
+
     return (
       <section className="goallist__weekly">
           <h2>Weekly goals</h2>
@@ -23,14 +26,6 @@ export const WeeklyGoals = (props) => {
                       </NavLink>
                   </div>
               ))}
-          </div>
-          <div className="complete">
-             <div className="goal weekly complete">
-                  <button>
-                      <span className="goal__title">Daily todo lists</span>
-                      <span className="weekly__progress">7/7</span>
-                  </button>
-              </div>
           </div>
       </section>
     );

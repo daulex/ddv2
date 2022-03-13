@@ -1,26 +1,25 @@
 import {DailyGoals} from './DailyGoals';
 import {WeeklyGoals} from './WeeklyGoals';
 import axios from "axios";
-import {useState, useContext, useEffect} from "react";
-import {Context} from "../Auth/UserContext";
+import {useState, useEffect} from "react";
 
-export const GoalList = (props) => {
-    const [activeUser] = useContext(Context);
+export const GoalList = () => {
 
     const [goals, setGoals] = useState([]);
+
     useEffect(() => {
-        const headers = {'Authorization': 'Bearer ' + activeUser };
-        axios.get(
-            process.env.REACT_APP_DDAPI + "goal",
-            { headers }
-        ).then(res => {
-            setGoals( JSON.parse(res.data) );
+
+        axios.get("goal",).then(res => {
+            setGoals(JSON.parse(res.data));
         });
-    }, [activeUser]);
-  return (
-    <section className="goallist">
-        <DailyGoals goals={goals} />
-        <WeeklyGoals goals={goals} />
-    </section>
-  );
+
+    }, []);
+
+
+    return (
+        <section className="goallist">
+            <DailyGoals setGoals={setGoals} goals={goals}/>
+            <WeeklyGoals goals={goals}/>
+        </section>
+    );
 }

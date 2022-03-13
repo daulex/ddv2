@@ -1,30 +1,28 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import {Context} from "../Auth/UserContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const RecordGoal = () => {
+  const navigate = useNavigate();
   const {recordId} = useParams();
   const { register, handleSubmit } = useForm();
-  const [activeUser] = useContext(Context);
   const [title, setTitle] = useState("Loading...");
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
 
   let form = {
-    headers: {'Authorization': 'Bearer ' + activeUser},
     submit: "Save",
-    getUrl: process.env.REACT_APP_DDAPI + "goal/" + recordId,
-    submitUrl:  process.env.REACT_APP_DDAPI + "goal/record/" + recordId
+    getUrl: "goal/" + recordId,
+    submitUrl:  "goal/record/" + recordId
   };
   const [submitButton, setSubmitButton] = useState(form.submit);
 
-  useEffect(() => {
 
+  useEffect(() => {
     axios({
       method: 'get',
-      url: form.getUrl,
-      headers: form.headers
+      url: form.getUrl
     }).then(res => {
       const data = JSON.parse(res.data);
       setTitle(data.title);
@@ -35,19 +33,13 @@ export const RecordGoal = () => {
   const onSubmit = data => {
     setSubmitButtonIsActive(false);
     setSubmitButton("Saving");
-    const headers = {
-      'Authorization': 'Bearer ' + activeUser
-    };
 
     axios({
       method: 'post',
       url: form.submitUrl,
-      data: data,
-      headers: headers
-    }).then(res => {
-      if(res.data === 200 && res.status === 200){
-        window.location.assign("/");
-      }
+      data: data
+    }).then(() => {
+      navigate('/');
     });
   };
 

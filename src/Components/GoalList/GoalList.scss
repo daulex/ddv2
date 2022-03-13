@@ -4,9 +4,7 @@
     h1{
         @include heading;
     }
-    section.complete{
-        padding-top: 15px;
-    }
+
     .goal{
         padding-top: 15px;
         & > button, & > a{
@@ -30,16 +28,13 @@
                     font-size: 16px;
                 }
             }
-        }
-        &.complete{
-            button{
+            &.complete{
                 font-weight: 400;
                 background: #f7f7f7;
-            }
-            .goal__title{
                 text-decoration: line-through;
             }
         }
+
         &.weekly{
             position: relative;
             overflow: hidden;

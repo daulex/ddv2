@@ -12,11 +12,15 @@ import {GoalForm} from './Components/GoalForm/GoalForm';
 import {RecordGoal} from "./Components/RecordGoal/RecordGoal";
 import AuthContainer from './Components/Auth/AuthContainer';
 import {Context}    from './Components/Auth/UserContext.js';
+import axios from "axios";
 
 
 function App() {
 
   const [activeUser, setActiveUser] = useState(localStorage.getItem('token') || false);
+
+  axios.defaults.baseURL = process.env.REACT_APP_DDAPI;
+  axios.defaults.headers.common = {'Authorization': `Bearer ${activeUser}`}
 
   if(!activeUser){
     return (

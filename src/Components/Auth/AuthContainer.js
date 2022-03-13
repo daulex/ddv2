@@ -3,6 +3,7 @@ import AuthMenu from './AuthMenu';
 import { AuthForm } from './AuthForm';
 import { payloadMaker } from "../../utilities";
 import {Context} from "./UserContext";
+// import axios from "axios";
 
 const AuthContainer = (props) => {
 
@@ -114,7 +115,8 @@ const AuthContainer = (props) => {
                     if(typeof response.token !== 'undefined'){
                         localStorage.setItem('token', response.token);
                         setActiveUser(response.token);
-                        window.history.pushState('dailyDo', '','/');
+
+                        window.location.assign("/");
                     }else{
                         setErrors(['Something went wrong, please try again']);
                         setProcessing(false);

@@ -1,34 +1,32 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-import {Context} from "../Auth/UserContext";
-import {useParams} from "react-router-dom";
-import {GoalDelete} from "./GoalDelete";
+import {useNavigate, useParams} from "react-router-dom";
+import { GoalDelete } from "./GoalDelete";
 
 export const GoalForm = () => {
   const {goalId} = useParams();
+  const navigate = useNavigate();
   const { register, getValues, handleSubmit, reset } = useForm();
-  const [activeUser] = useContext(Context);
-
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
   const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
 
   let form = {
-    headers: {'Authorization': 'Bearer ' + activeUser},
     submit: "Submit"
   };
+
   if(typeof goalId !== 'undefined'){
     form.title = "Edit goal";
     form.type = "edit";
     form.method = "put";
     form.submit = "Update goal";
-    form.url = process.env.REACT_APP_DDAPI + "goal/" + goalId;
+    form.url = "goal/" + goalId;
   }else{
     form.title = "New goal";
     form.type = "new";
     form.method = "post";
     form.submit = "Create goal";
-    form.url = process.env.REACT_APP_DDAPI + "goal";
+    form.url = "goal";
   }
 
   const [submitButton, setSubmitButton] = useState(form.submit);
@@ -38,8 +36,7 @@ export const GoalForm = () => {
     if(form.type === "edit"){
       axios({
         method: 'get',
-        url: form.url,
-        headers: form.headers
+        url: form.url
       }).then(res => {
         const data = JSON.parse(res.data);
         reset({
@@ -58,18 +55,14 @@ export const GoalForm = () => {
   const onSubmit = data => {
     setSubmitButtonIsActive(false);
     setSubmitButton("Saving");
-    const headers = {
-      'Authorization': 'Bearer ' + activeUser
-    };
 
     axios({
           method: form.method,
           url: form.url,
-          data: data,
-          headers: headers
+          data: data
         }).then(res => {
           if(res.data === 200 && res.status === 200){
-            window.location.assign("/");
+            navigate('/');
           }
     });
   };
