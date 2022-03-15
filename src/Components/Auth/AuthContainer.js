@@ -1,21 +1,18 @@
 import React, {useState, useContext} from 'react';
 import AuthMenu from './AuthMenu';
-import { AuthForm } from './AuthForm';
+import AuthForm from './AuthForm';
 import { payloadMaker } from "../../utilities";
 import {Context} from "./UserContext";
-// import axios from "axios";
 
-const AuthContainer = (props) => {
+const AuthContainer = ({action}) => {
 
     const [activeUser, setActiveUser] = useContext(Context);
     if(activeUser){
         window.location = "/";
     }
-    const [action, setAction] = useState(props.action ?? "login" );
     const [errors, setErrors] = useState([] );
     const [successMessage, setSuccessMessage] = useState(false );
     const [processing, setProcessing] = useState(false );
-
 
     const actions = {
         login: {
@@ -41,59 +38,10 @@ const AuthContainer = (props) => {
             title: "Reset",
             buttonLabel: "Reset password",
             inputs: ["reset_email", "reset_token", "password", "password_confirm"]
-        },
-        verify: {
-            name: "verify",
-            title: "Verify",
-            buttonLabel: "Verify email",
-            inputs: ["verify_email"]
         }
     }
-
-    const inputs = {
-        email: {
-            name: "email",
-            type: "email",
-            label: "Email",
-            placeholder: "name@example.com"
-        },
-        reset_email: {
-            name: "reset_email",
-            type: "text",
-            label: "Reset email",
-            disabled: "disabled"
-        },
-        verify_email: {
-            name: "verify_email",
-            type: "text",
-            label: "Verify email",
-            disabled: "disabled"
-        },
-        reset_token: {
-            name: "key",
-            type: "key",
-            label: "Key",
-            disabled: "disabled"
-        },
-        password: {
-            name: "password",
-            type: "password",
-            label: "Password",
-            placeholder: "Password"
-        },
-        password_confirm: {
-            name: "password_confirm",
-            type: "password",
-            label: "Confirm password",
-            placeholder: "Confirm password"
-        }
-    }
-
-
-
 
     const setCurrentAction = (action) => {
-            setAction(action);
             setSuccessMessage(false);
             setProcessing(false);
     }
@@ -104,12 +52,9 @@ const AuthContainer = (props) => {
         if(action === "login" || forceAction === "login"){
 
             const authUrl = process.env.REACT_APP_DDAPI_DOMAIN + 'wp-json/jwt-auth/v1/token';
-            const body = {
-                username: data[0],
-                password: data[1]
-            };
+            console.log(authUrl);
 
-            fetch(authUrl, payloadMaker(body) )
+            fetch(authUrl, payloadMaker(data) )
                 .then(res => res.json())
                 .then(response => {
                     if(typeof response.token !== 'undefined'){
@@ -125,7 +70,7 @@ const AuthContainer = (props) => {
 
         }else if(action === "recover"){
 
-            const url = process.env.REACT_APP_DDAPI + 'reset-password/' + data[0];
+            const url = process.env.REACT_APP_DDAPI + 'reset-password/' + data.username;
 
             fetch(url)
                 .then(res => res.json())
@@ -135,25 +80,25 @@ const AuthContainer = (props) => {
 
             setSuccessMessage("Password reset link will be sent shortly.");
 
-        }else if(action === "verify"){
-
-            const url = process.env.REACT_APP_DDAPI + 'verify-email/';
-            const body = {
-                key: data[0],
-            };
-
-            fetch(url, payloadMaker(body) )
-                .then(res => res.json())
-                .then(response => {
-
-                    if (parseInt(response)) {
-                        setSuccessMessage("Email verified... Redirecting.");
-                        setTimeout(function(){window.location = "/";}, 300);
-                    } else {
-                        setErrors(['Something went wrong, please try again']);
-                        setProcessing(false);
-                    }
-                });
+        // }else if(action === "verify"){
+        //
+        //     const url = process.env.REACT_APP_DDAPI + 'verify-email/';
+        //     const body = {
+        //         key: data[0],
+        //     };
+        //
+        //     fetch(url, payloadMaker(body) )
+        //         .then(res => res.json())
+        //         .then(response => {
+        //
+        //             if (parseInt(response)) {
+        //                 setSuccessMessage("Email verified... Redirecting.");
+        //                 setTimeout(function(){window.location = "/";}, 300);
+        //             } else {
+        //                 setErrors(['Something went wrong, please try again']);
+        //                 setProcessing(false);
+        //             }
+        //         });
 
 
 
@@ -161,16 +106,16 @@ const AuthContainer = (props) => {
 
             const authUrl = process.env.REACT_APP_DDAPI + 'reset-password/';
             const body = {
-                username: data[0],
-                key: data[1],
-                password: data[2],
+                username: data.reset_email,
+                key: data.key,
+                password: data.password,
             };
 
             fetch(authUrl, payloadMaker(body) )
                 .then(res => res.json())
                 .then(response => {
                     if (parseInt(response)) {
-                        processAuth([data[0], data[2]], "login");
+                        processAuth([data.reset_email, data.password], "login");
                     } else {
                         setErrors(['Something went wrong, please try again']);
                         setProcessing(false);
@@ -178,16 +123,12 @@ const AuthContainer = (props) => {
                 });
         }else if(action === "register"){
             const regUrl = process.env.REACT_APP_DDAPI + 'register/';
-            const body = {
-                username: data[0],
-                password: data[1],
-            };
 
-            fetch(regUrl, payloadMaker(body) )
+            fetch(regUrl, payloadMaker(data) )
                 .then(res => res.json())
                 .then(response => {
                     if (parseInt(response)) {
-                        processAuth([data[0], data[1]], "login");
+                        processAuth([data.username, data.password], "login");
                     } else {
                         setErrors(['Something went wrong, please try again']);
                         setProcessing(false);
@@ -198,7 +139,6 @@ const AuthContainer = (props) => {
 
 
     const submitLabel = actions[action].buttonLabel;
-    const inputList = actions[action].inputs;
 
     return(
         <div className="auth-wrap">
@@ -206,7 +146,7 @@ const AuthContainer = (props) => {
             <AuthMenu setCurrentAction={setCurrentAction} action={action} actions={actions} />
             }
             {successMessage ? <div className="alert alert-primary my-3">{successMessage}</div> :
-            <AuthForm errors={errors} processAuth={processAuth} action={action} inputs={inputs} inputList={inputList} submitLabel={submitLabel} processing={processing} />
+            <AuthForm errors={errors} processAuth={processAuth} action={action} actions={actions} submitLabel={submitLabel} processing={processing} />
             }
         </div>
     );

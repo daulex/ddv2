@@ -17,10 +17,12 @@ export const Header = () => {
     return (
         <header className="main">
             <NavLink to="/"><img src={logo} className="logo" alt="dailyDo logo" /></NavLink>
+            {activeUser &&
             <nav>
                 <NavLink to="/new-goal" key="new-goal"><Icon color='#000' size="20px" icon='plus-square' /></NavLink>
                 <button onClick={logOut} className="icon-button"><Icon color='#000' size="20px" icon='menu' /></button>
             </nav>
+            }
         </header>
     );
 

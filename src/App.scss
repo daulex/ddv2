@@ -27,6 +27,7 @@ button, input[type=submit]{
 input[disabled]{
   opacity: .3;
 }
+@import './Components/Auth/Auth.scss';
 @import './Components/Header/Header.scss';
 @import './Components/GoalList/GoalList.scss';
 @import './Components/GoalList/GoalList.scss';

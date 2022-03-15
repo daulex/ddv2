@@ -20,8 +20,8 @@ export const GoalList = () => {
         <section className="goallist">
             {goals.length > 0 &&
                 <div>
-            <DailyGoals setGoals={setGoals} goals={goals}/>
-            <WeeklyGoals goals={goals}/>
+                    <DailyGoals setGoals={setGoals} goals={goals}/>
+                    <WeeklyGoals goals={goals}/>
                 </div>
             }
         </section>

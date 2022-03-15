@@ -1,25 +1,22 @@
-import React from 'react';
-import Nav from 'react-bootstrap/Nav';
+import { NavLink } from "react-router-dom";
 
+const AuthMenu = ({actions, action}) => {
 
-export default function AuthMenu(props){
-
-    const menuItems = props.actions;
+    const menuItems = actions;
     delete menuItems.reset;
     delete menuItems.verify;
 
     return(
-        <Nav variant={"tabs"} defaultActiveKey={"action-" + props.action}>
+
+        <nav>
             {Object.keys(menuItems).map((key) => (
-            <Nav.Item key={"menu-" + props.actions[key].name}>
-                <Nav.Link eventKey={"action-" + props.actions[key].name}
-                          attr-action={props.actions[key].name}
-                          href={"/user/" + props.actions[key].name}
-                          title={props.actions[key].title}
-                >{props.actions[key].title}</Nav.Link>
-            </Nav.Item>
+                <NavLink key={key} to={"/user/" + actions[key].name} className={({ isActive }) => {
+                    return isActive || (action === 'login' && actions[key].name === 'login') ? "active" : "";
+                }}>{actions[key].title}</NavLink>
             ))}
-        </Nav>
+        </nav>
+
     );
 
 }
+export default AuthMenu;

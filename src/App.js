@@ -27,13 +27,14 @@ function App() {
         <Router>
           <Context.Provider  value={[activeUser, setActiveUser]}>
             <div className="App">
+              <Header />
               <Routes>
                 <Route path="/" element={<AuthContainer action="login" />} />
                 <Route path="user/login" element={<AuthContainer action='login' />} />
                 <Route path="user/register" element={<AuthContainer action='register' />} />
                 <Route path="user/recover" element={<AuthContainer action='recover' />} />
                 <Route path="user/reset" element={<AuthContainer action='reset' />} />
-                <Route path="user/verify" element={<AuthContainer action='verify' />} />
+                <Route path="user/verify" element={<h1>todo: verify auto redirect to app</h1>} />
               </Routes>
             </div>
           </Context.Provider>

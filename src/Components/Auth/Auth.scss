@@ -1,8 +1,24 @@
 .auth-wrap{
-    width: 400px;
-    max-width: 90%;
-    padding: 15px;
+    padding: 0 15px 15px;
     margin: auto;
+    nav{
+        display: flex;
+        justify-content: flex-start;
+        border-bottom: 1px solid #fff;
+        a{
+            display: block;
+            padding: 8px 15px 7px;
+            color: #333;
+            text-decoration: none;
+            opacity: .6;
+
+            &.active{
+                border-bottom: 1px solid #333;
+                cursor: default;
+                opacity: 1;
+            }
+        }
+    }
     form{
         padding-top: 20px;
     }
@@ -10,6 +26,7 @@
         color: #f00;
     }
 }
+
 //.auth-wrap{
 //    border: 1px solid #eee;
 //    width: 400px;
