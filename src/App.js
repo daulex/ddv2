@@ -11,6 +11,7 @@ import {GoalList} from './Components/GoalList/GoalList';
 import {GoalForm} from './Components/GoalForm/GoalForm';
 import {RecordGoal} from "./Components/RecordGoal/RecordGoal";
 import AuthContainer from './Components/Auth/AuthContainer';
+import VerifyEmail from './Components/Auth/VerifyEmail';
 import {Context}    from './Components/Auth/UserContext.js';
 import axios from "axios";
 
@@ -35,7 +36,7 @@ function App() {
                 <Route path="user/register" element={<AuthContainer action='register' />} />
                 <Route path="user/recover" element={<AuthContainer action='recover' />} />
                 <Route path="user/reset" element={<AuthContainer action='reset' />} />
-                <Route path="user/verify" element={<h1>todo: verify auto redirect to app</h1>} />
+                <Route path="user/verify/:key" element={<VerifyEmail />} />
               </Routes>
             </div>
           </Context.Provider>
@@ -55,6 +56,7 @@ function App() {
             <Route path="new-goal" element={<GoalForm />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />
+            <Route path="user/verify/:key" element={<VerifyEmail />} />
           </Routes>
         </div>
       </Context.Provider>

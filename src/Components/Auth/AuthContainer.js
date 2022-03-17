@@ -1,7 +1,6 @@
 import React, {useState, useContext} from 'react';
 import AuthMenu from './AuthMenu';
 import AuthForm from './AuthForm';
-import { payloadMaker } from "../../utilities";
 import {Context} from "./UserContext";
 import axios from "axios";
 
