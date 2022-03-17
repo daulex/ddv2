@@ -68,68 +68,32 @@ const AuthContainer = ({action}) => {
 
         }else if(action === "recover"){
 
-            const url = process.env.REACT_APP_DDAPI + 'reset-password/' + data.username;
-
-            fetch(url)
-                .then(res => res.json())
-                .then(() => {
-                    // console.log("req sent");
-                });
-
+            axios.get( process.env.REACT_APP_DDAPI + 'reset-password/' + data.username);
             setSuccessMessage("Password reset link will be sent shortly.");
-
-        // }else if(action === "verify"){
-        //
-        //     const url = process.env.REACT_APP_DDAPI + 'verify-email/';
-        //     const body = {
-        //         key: data[0],
-        //     };
-        //
-        //     fetch(url, payloadMaker(body) )
-        //         .then(res => res.json())
-        //         .then(response => {
-        //
-        //             if (parseInt(response)) {
-        //                 setSuccessMessage("Email verified... Redirecting.");
-        //                 setTimeout(function(){window.location = "/";}, 300);
-        //             } else {
-        //                 setErrors(['Something went wrong, please try again']);
-        //                 setProcessing(false);
-        //             }
-        //         });
-
-
 
         }else if(action === "reset") {
 
             const authUrl = process.env.REACT_APP_DDAPI + 'reset-password/';
-            const body = {
-                username: data.reset_email,
-                key: data.key,
-                password: data.password,
-            };
-
-            fetch(authUrl, payloadMaker(body) )
-                .then(res => res.json())
-                .then(response => {
-                    if (parseInt(response)) {
-                        processAuth([data.reset_email, data.password], "login");
+            axios.post(authUrl, data)
+                .then((response) => {
+                    if (parseInt(response.data)) {
+                        processAuth(data, "login");
                     } else {
                         setProcessing(false);
                     }
                 });
+
         }else if(action === "register"){
             const regUrl = process.env.REACT_APP_DDAPI + 'register/';
-
-            fetch(regUrl, payloadMaker(data) )
-                .then(res => res.json())
-                .then(response => {
-                    if (parseInt(response)) {
-                        processAuth([data.username, data.password], "login");
+            axios.post(regUrl, data)
+                .then((response) => {
+                    if (parseInt(response.data)) {
+                        processAuth(data, "login");
                     } else {
                         setProcessing(false);
                     }
                 });
+
         }
     }
 

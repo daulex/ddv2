@@ -9,7 +9,7 @@ const AuthForm = ({action, actions, processAuth}) => {
     const formOptions = {};
     if(resetEmail && resetToken && action === 'reset'){
         formOptions.defaultValues = {
-            reset_email: resetEmail,
+            username: resetEmail,
             key: resetToken
         }
     }
@@ -26,7 +26,7 @@ const AuthForm = ({action, actions, processAuth}) => {
             validation: {required: true, pattern: /^\S+@\S+$/i}
         },
         reset_email: {
-            name: "reset_email",
+            name: "username",
             type: "text",
             label: "Reset email",
             disabled: "disabled",
