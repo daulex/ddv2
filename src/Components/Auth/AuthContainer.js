@@ -3,6 +3,7 @@ import AuthMenu from './AuthMenu';
 import AuthForm from './AuthForm';
 import { payloadMaker } from "../../utilities";
 import {Context} from "./UserContext";
+import axios from "axios";
 
 const AuthContainer = ({action}) => {
 
@@ -10,7 +11,6 @@ const AuthContainer = ({action}) => {
     if(activeUser){
         window.location = "/";
     }
-    const [errors, setErrors] = useState([] );
     const [successMessage, setSuccessMessage] = useState(false );
     const [processing, setProcessing] = useState(false );
 
@@ -51,22 +51,20 @@ const AuthContainer = ({action}) => {
 
         if(action === "login" || forceAction === "login"){
 
-            const authUrl = process.env.REACT_APP_DDAPI_DOMAIN + 'wp-json/jwt-auth/v1/token';
-            console.log(authUrl);
-
-            fetch(authUrl, payloadMaker(data) )
-                .then(res => res.json())
-                .then(response => {
-                    if(typeof response.token !== 'undefined'){
-                        localStorage.setItem('token', response.token);
-                        setActiveUser(response.token);
-
+            axios.post('wp-json/jwt-auth/v1/token', data)
+              .then(function (response) {
+                if(typeof response.data !== undefined && typeof response.data.token !== undefined){
+                    localStorage.setItem('token', response.data.token);
+                    setActiveUser(response.data.token);
+                    setTimeout(function(){
                         window.location.assign("/");
-                    }else{
-                        setErrors(['Something went wrong, please try again']);
-                        setProcessing(false);
-                    }
-                });
+                    }, 100);
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
 
         }else if(action === "recover"){
 
@@ -117,7 +115,6 @@ const AuthContainer = ({action}) => {
                     if (parseInt(response)) {
                         processAuth([data.reset_email, data.password], "login");
                     } else {
-                        setErrors(['Something went wrong, please try again']);
                         setProcessing(false);
                     }
                 });
@@ -130,7 +127,6 @@ const AuthContainer = ({action}) => {
                     if (parseInt(response)) {
                         processAuth([data.username, data.password], "login");
                     } else {
-                        setErrors(['Something went wrong, please try again']);
                         setProcessing(false);
                     }
                 });
@@ -146,7 +142,7 @@ const AuthContainer = ({action}) => {
             <AuthMenu setCurrentAction={setCurrentAction} action={action} actions={actions} />
             }
             {successMessage ? <div className="alert alert-primary my-3">{successMessage}</div> :
-            <AuthForm errors={errors} processAuth={processAuth} action={action} actions={actions} submitLabel={submitLabel} processing={processing} />
+            <AuthForm processAuth={processAuth} action={action} actions={actions} submitLabel={submitLabel} processing={processing} />
             }
         </div>
     );

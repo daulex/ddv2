@@ -15,11 +15,8 @@ const AuthForm = ({action, actions, processAuth}) => {
     }
     const { register, handleSubmit, formState: { errors } } = useForm(formOptions);
     const onSubmit = data => {
-        console.log(data);
         processAuth(data);
     };
-    // console.log(errors);
-
     const inputData = {
         email: {
             name: "username",

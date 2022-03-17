@@ -19,10 +19,11 @@ function App() {
 
   const [activeUser, setActiveUser] = useState(localStorage.getItem('token') || false);
 
-  axios.defaults.baseURL = process.env.REACT_APP_DDAPI;
-  axios.defaults.headers.common = {'Authorization': `Bearer ${activeUser}`}
+  
+  
 
   if(!activeUser){
+    axios.defaults.baseURL = process.env.REACT_APP_DDAPI_DOMAIN;
     return (
         <Router>
           <Context.Provider  value={[activeUser, setActiveUser]}>
@@ -42,6 +43,8 @@ function App() {
         );
   }
 
+  axios.defaults.baseURL = process.env.REACT_APP_DDAPI;
+  axios.defaults.headers.common = {'Authorization': `Bearer ${activeUser}`};
   return (
     <Router>
       <Context.Provider  value={[activeUser, setActiveUser]}>
