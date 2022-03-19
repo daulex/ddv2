@@ -46,6 +46,7 @@ function App() {
 
   axios.defaults.baseURL = process.env.REACT_APP_DDAPI;
   axios.defaults.headers.common = {'Authorization': `Bearer ${activeUser}`};
+
   return (
     <Router>
       <Context.Provider  value={[activeUser, setActiveUser]}>

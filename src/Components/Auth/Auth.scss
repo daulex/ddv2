@@ -7,15 +7,19 @@
         border-bottom: 1px solid #fff;
         a{
             display: block;
-            padding: 8px 15px 7px;
+            padding: 10px 15px 9px;
             color: #333;
             text-decoration: none;
             opacity: .6;
+            border-radius: $borderRadius;
+            background: #fff;
 
             &.active{
-                border-bottom: 1px solid #333;
-                cursor: default;
+                //border-bottom: 1px solid #333;
+                background: #333;
+                color: #fff;
                 opacity: 1;
+                cursor: default;
             }
         }
     }
@@ -35,6 +39,8 @@
                     margin-bottom: 15px;
                     font-size: 16px;
                     line-height: 1.2;
+                    border-radius: $borderRadius;
+                    border: 1px solid #333;
                 }
             }
             label{
@@ -48,6 +54,7 @@
             @include button;
             background: #333;
             color: #fff;
+            border-radius: $borderRadius;
         }
     }
     .errors{

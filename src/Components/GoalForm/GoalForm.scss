@@ -16,12 +16,7 @@
             padding-bottom: 5px;
         }
         input.field__text{
-            height: 50px;
-            border: none;
-            background: #eee;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: 600;
+            @include formInput;
         }
     }
     .goal-type__option + .goal-type__option{
@@ -44,7 +39,8 @@
     padding: 15px;
     input{
         @include button;
-        color: #FFFFFF;
-        background: #333;
+        color: #FFF;
+        border-radius: $borderRadius;
+        background-image: linear-gradient(to right, #333 0%, lighten(#333, 10%) 71%, #333 100%);
     }
 }

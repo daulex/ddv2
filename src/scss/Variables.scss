@@ -22,6 +22,17 @@ $buttonHeight: 53px;
     padding: 15px;
     text-decoration: none;
 }
+@mixin formInput{
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: none;
+    background: #eee;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: $borderRadius;
+}
 $borderRadius: 5px;
 $blue: #0d82df;
 $cta: #85bf31;

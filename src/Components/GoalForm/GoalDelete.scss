@@ -4,6 +4,7 @@
     @include button;
     background: $text_strong;
     color: $white;
+    border-radius: $borderRadius;
   }
   &__confirmation{
     display: flex;
