@@ -27,10 +27,10 @@ const VerifyEmail = () => {
     return(
         <div className="verify-screen">
             <h1>Email verification</h1>
-            <div className="verify-screen__success">
+            <div className="verify-screen__message">
                 <p>{message}</p>
                 {emailIsVerified &&
-                    <a href="/">Log in</a>
+                    <a className="button" href="/">Log in</a>
                 }
             </div>
         </div>

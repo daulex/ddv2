@@ -1,8 +1,8 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import AuthMenu from './AuthMenu';
 import AuthForm from './AuthForm';
 import {Context} from "./UserContext";
-import axios from "axios";
+    import axios from "axios";
 
 const AuthContainer = ({action}) => {
 
@@ -11,7 +11,15 @@ const AuthContainer = ({action}) => {
         window.location = "/";
     }
     const [successMessage, setSuccessMessage] = useState(false );
+    const [errorMessage, setErrorMessage] = useState(false );
     const [processing, setProcessing] = useState(false );
+
+    useEffect(() => {
+        setSuccessMessage(false);
+    }, [action]);
+    useEffect(() => {
+        setErrorMessage(false);
+    }, [action]);
 
     const actions = {
         login: {
@@ -41,12 +49,13 @@ const AuthContainer = ({action}) => {
     }
 
     const setCurrentAction = (action) => {
-            setSuccessMessage(false);
-            setProcessing(false);
+        setSuccessMessage(false);
+        setProcessing(false);
     }
 
     const processAuth = (data, forceAction = "none") => {
         setProcessing(true);
+        setErrorMessage(false);
 
         if(action === "login" || forceAction === "login"){
 
@@ -61,7 +70,7 @@ const AuthContainer = ({action}) => {
                 }
               })
               .catch(function (error) {
-                console.log(error);
+                setErrorMessage("Something went wrong, please try again.")
               });
 
 
@@ -96,7 +105,6 @@ const AuthContainer = ({action}) => {
         }
     }
 
-
     const submitLabel = actions[action].buttonLabel;
 
     return(
@@ -104,7 +112,8 @@ const AuthContainer = ({action}) => {
             {!['reset','verify'].includes(action)  &&
             <AuthMenu setCurrentAction={setCurrentAction} action={action} actions={actions} />
             }
-            {successMessage ? <div className="alert alert-primary my-3">{successMessage}</div> :
+            {errorMessage && <div className="auth-wrap__error">{errorMessage}</div>}
+            {successMessage ? <div className="auth-wrap__success">{successMessage}</div> :
             <AuthForm processAuth={processAuth} action={action} actions={actions} submitLabel={submitLabel} processing={processing} />
             }
         </div>
