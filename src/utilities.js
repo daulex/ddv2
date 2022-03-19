@@ -28,15 +28,6 @@ export function findGetParameter(parameterName) {
     return result;
 }
 
-export function payloadMaker(body){
-    return {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    };
-}
 
 export function key_to_date(key){
     let res = key.split("_")[1];
@@ -46,3 +37,5 @@ export function key_to_date(key){
 
     return res.toLocaleDateString(undefined, options);
 }
+
+

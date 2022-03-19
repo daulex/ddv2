@@ -14,6 +14,7 @@ import AuthContainer from './Components/Auth/AuthContainer';
 import VerifyEmail from './Components/Auth/VerifyEmail';
 import {Context}    from './Components/Auth/UserContext.js';
 import axios from "axios";
+import MyAccount from "./Components/MyAccount/MyAccount";
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           <Routes>
             <Route path="/" element={<GoalList />} />
             <Route path="new-goal" element={<GoalForm />} />
+            <Route path="my-account" element={<MyAccount />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />
             <Route path="user/verify/:key" element={<VerifyEmail />} />
