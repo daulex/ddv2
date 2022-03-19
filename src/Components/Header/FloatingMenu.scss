@@ -1,0 +1,41 @@
+.floating-menu{
+  position: absolute;
+  width: 260px;
+  top:0;
+  right:0;
+  background: #333;
+  border-radius: $borderRadius;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+  .menu-toggle{
+    align-self: flex-end;
+    display: block;
+    padding:15px;
+    margin:0;
+  }
+  a{
+    color: #fff;
+    text-decoration: none;
+  }
+  ul{
+    list-style: none;
+    padding: 0 15px;
+    margin: 0;
+    li{
+      display: block;
+      padding-bottom: 10px;
+    }
+  }
+  button.log-out{
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    margin: 15px;
+    padding: 0;
+    color: #fff;
+
+  }
+}

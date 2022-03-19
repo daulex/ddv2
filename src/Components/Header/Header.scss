@@ -10,7 +10,8 @@ header.main{
     }
     nav{
       display: flex;
-      button,a{
+      position: relative;
+      & > button, & > a{
         display: block;
         padding:15px;
         margin:0;
