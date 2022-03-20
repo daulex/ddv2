@@ -18,12 +18,7 @@ import MyAccount from "./Components/MyAccount/MyAccount";
 
 
 function App() {
-
   const [activeUser, setActiveUser] = useState(localStorage.getItem('token') || false);
-
-  
-  
-
   if(!activeUser){
     axios.defaults.baseURL = process.env.REACT_APP_DDAPI_DOMAIN;
     return (
@@ -56,7 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<GoalList />} />
             <Route path="new-goal" element={<GoalForm />} />
-            <Route path="my-account" element={<MyAccount />} />
+            <Route path="my-account" element={<MyAccount setActiveUser={setActiveUser} />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />
             <Route path="user/verify/:key" element={<VerifyEmail />} />

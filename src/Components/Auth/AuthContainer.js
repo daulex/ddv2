@@ -48,7 +48,7 @@ const AuthContainer = ({action}) => {
         }
     }
 
-    const setCurrentAction = (action) => {
+    const setCurrentAction = () => {
         setSuccessMessage(false);
         setProcessing(false);
     }
@@ -65,11 +65,11 @@ const AuthContainer = ({action}) => {
                     localStorage.setItem('token', response.data.token);
                     setActiveUser(response.data.token);
                     setTimeout(function(){
-                        window.location.assign("/");
+                        // window.location.assign("/");
                     }, 100);
                 }
               })
-              .catch(function (error) {
+              .catch(function () {
                 setErrorMessage("Something went wrong, please try again.")
               });
 

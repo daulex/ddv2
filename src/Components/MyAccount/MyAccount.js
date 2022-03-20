@@ -1,67 +1,75 @@
 import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DeleteButton from "../Shared/DeleteButton/DeleteButton";
 
-const MyAccount = () => {
+const MyAccount = ({setActiveUser}) => {
   const navigate = useNavigate();
-  const {recordId} = useParams();
-  const { register, handleSubmit } = useForm();
-  const [title, setTitle] = useState("Loading...");
+
+  const { register, handleSubmit, reset } = useForm();
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
 
   let form = {
-    submit: "Save",
-    getUrl: "goal/" + recordId,
-    submitUrl:  "goal/record/" + recordId
+    submit: "Update email",
+    endpoint: "my-account",
   };
   const [submitButton, setSubmitButton] = useState(form.submit);
 
 
   useEffect(() => {
-    // axios({
-    //   method: 'get',
-    //   url: form.getUrl
-    // }).then(res => {
-    //   const data = JSON.parse(res.data);
-    //   setTitle(data.title);
-    // });
-
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    axios({
+      method: 'get',
+      url: form.endpoint
+    }).then(res => {
+      reset({
+        email: res.data
+      });
+    });
+  }, [form.endpoint, reset]);
 
   const onSubmit = data => {
     setSubmitButtonIsActive(false);
     setSubmitButton("Saving");
 
     axios({
-      method: 'post',
-      url: form.submitUrl,
+      method: 'put',
+      url: form.endpoint,
       data: data
     }).then(() => {
       navigate('/');
     });
   };
 
+  const runDelete = () => {
+    axios({
+      method: 'delete',
+      url: "my-account"
+    }).then(res => {
+      if(res.data === 200){
+        localStorage.removeItem('token');
+        setActiveUser(false);
+        navigate('/');
+      }
+    });
+  }
+
   return (
     <section className="my-account">
       <h1>My Account</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-account__title-row">
-          <span className="label">Add repetitions to goal</span>
-          <span className="title">{title}</span>
-        </div>
+
         <div className="field">
-          <label className="field__label" htmlFor="amount">Amount to add</label>
-          <input className="field__text" id="amount" type="number" placeholder="Amount to add" {...register("amount", {required: true, maxLength: 80})} />
+          <label className="field__label" htmlFor="email">My Email</label>
+          <input className="field__text" id="email" type="email" placeholder="My email" {...register("email", {required: true, maxLength: 80})} />
         </div>
-
-
 
         <div className="form-footer">
           <input type="submit" disabled={!submitButtonIsActive} value={submitButton} />
         </div>
       </form>
+
+      <DeleteButton runDelete={runDelete} label="Delete my account"/>
     </section>
   );
 }

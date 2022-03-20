@@ -12,10 +12,10 @@ export const Header = () => {
             to: "/my-account",
             label: "My account"
         },
-        {
-            to: "/tips",
-            label: "Tips"
-        }
+        // {
+        //     to: "/tips",
+        //     label: "Tips"
+        // }
     ];
     const [floatingMenuShowing, setFloatingMenuShowing] = useState(false);
     const [activeUser, setActiveUser] = useContext(Context);

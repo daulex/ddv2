@@ -33,5 +33,7 @@ input[disabled]{
 @import './Components/GoalList/GoalList.scss';
 @import './Components/GoalList/GoalList.scss';
 @import './Components/GoalForm/GoalForm';
-@import './Components/GoalForm/GoalDelete';
 @import './Components/RecordGoal/RecordGoal.scss';
+@import './Components/MyAccount/MyAccount.scss';
+
+@import './Components/Shared/DeleteButton/DeleteButton';
