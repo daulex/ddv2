@@ -3,7 +3,7 @@ import {WeeklyGoals} from './WeeklyGoals';
 import axios from "axios";
 import {useState, useEffect} from "react";
 
-export const GoalList = () => {
+export const GoalList = ({logOut}) => {
 
     const [goals, setGoals] = useState([]);
 
@@ -11,9 +11,13 @@ export const GoalList = () => {
 
         axios.get("goal",).then(res => {
             setGoals(JSON.parse(res.data));
+        }).catch(error => {
+            if(error.response.status === 403){
+                logOut();
+            }
         });
 
-    }, []);
+    }, [logOut]);
 
 
     return (

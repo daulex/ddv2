@@ -65,7 +65,7 @@ const AuthContainer = ({action}) => {
                     localStorage.setItem('token', response.data.token);
                     setActiveUser(response.data.token);
                     setTimeout(function(){
-                        // window.location.assign("/");
+                        window.location.assign("/");
                     }, 100);
                 }
               })

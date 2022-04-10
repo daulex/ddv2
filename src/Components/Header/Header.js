@@ -5,7 +5,6 @@ import {Icon} from "../IcoMoon/Icon";
 import { Context } from "../Auth/UserContext";
 import FloatingMenu from "./FloatingMenu";
 
-
 export const Header = () => {
     const links = [
         {
@@ -35,7 +34,9 @@ export const Header = () => {
             {activeUser &&
             <nav>
                 <NavLink to="/new-goal" key="new-goal"><Icon color='#000' size="20px" icon='plus-square' /></NavLink>
-                <button onClick={handleMenuClick} className="icon-button"><Icon color='#000' size="20px" icon='menu' /></button>
+                <button onClick={handleMenuClick} className="icon-button">
+                    <Icon color='#000' size="20px" icon='menu' />
+                </button>
                 {floatingMenuShowing && <FloatingMenu links={links} logOut={logOut} setFloatingMenuShowing={setFloatingMenuShowing}/>}
             </nav>
             }

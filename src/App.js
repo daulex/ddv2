@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,6 +19,12 @@ import MyAccount from "./Components/MyAccount/MyAccount";
 
 function App() {
   const [activeUser, setActiveUser] = useState(localStorage.getItem('token') || false);
+  const logOut = () => {
+    localStorage.removeItem('token');
+    setActiveUser(false);
+    window.history.pushState('dailyDo', '','/');
+    window.location.reload();
+  }
   if(!activeUser){
     axios.defaults.baseURL = process.env.REACT_APP_DDAPI_DOMAIN;
     return (
@@ -49,7 +55,7 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
-            <Route path="/" element={<GoalList />} />
+            <Route path="/" element={<GoalList logOut={logOut} />} />
             <Route path="new-goal" element={<GoalForm />} />
             <Route path="my-account" element={<MyAccount setActiveUser={setActiveUser} />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
