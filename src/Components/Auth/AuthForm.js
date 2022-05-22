@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import {findGetParameter} from "../../utilities";
+import { AuthFormInput } from './AuthFormInput';
 
 const resetEmail = findGetParameter('em');
 const resetToken = findGetParameter('to');
@@ -13,7 +14,9 @@ const AuthForm = ({action, actions, processAuth}) => {
             key: resetToken
         }
     }
-    const { register, handleSubmit  } = useForm(formOptions);
+    
+    const { register, handleSubmit, watch, formState: { errors }  } = useForm(formOptions);
+    
     const onSubmit = data => {
         processAuth(data);
     };
@@ -44,14 +47,24 @@ const AuthForm = ({action, actions, processAuth}) => {
             type: "password",
             label: "Password",
             placeholder: "Password",
-            validation: {required: true, min: 6}
+            validation: {
+                required: {
+                    value: true,
+                    message: "Password is required"
+                },
+                minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters"
+                }
+            }
         },
         password_confirm: {
             name: "password_confirm",
             type: "password",
             label: "Confirm password",
             placeholder: "Confirm password",
-            validation: {required: true, min: 6}
+            validation: {validate: value =>
+                value === watch('password') || "The passwords do not match"}
         }
     }
     const inputsToRender = actions[action].inputs;
@@ -61,16 +74,13 @@ const AuthForm = ({action, actions, processAuth}) => {
 
             <fieldset className={'fields-'+action}>
             {inputsToRender.map((fieldRef, i) => (
-                <div className={'field-type-' + inputData[fieldRef].type} id={inputData[fieldRef].name} key={"field-"+i}>
-                    <label htmlFor={inputData[fieldRef].name}>{inputData[fieldRef].label}</label>
-                    <input
-                        type={inputData[fieldRef].type}
-                        placeholder={inputData[fieldRef].placeholder}
-                        name={inputData[fieldRef].name}
-                        disabled={inputData[fieldRef].disabled}
-                        {...register(inputData[fieldRef].name, inputData[fieldRef].validation)}
-                        />
-                </div>
+                <AuthFormInput 
+                    name={inputData[fieldRef].name} 
+                    field={inputData[fieldRef]}
+                    register={register}
+                    key={"field-"+i}
+                    error={errors[fieldRef]}
+                    />
             ))}
             </fieldset>
 

@@ -36,7 +36,6 @@
                 &[type=password]{
                     width: 100%;
                     padding: 15px;
-                    margin-bottom: 15px;
                     font-size: 16px;
                     line-height: 1.2;
                     border-radius: $borderRadius;
@@ -55,6 +54,24 @@
             background: #333;
             color: #fff;
             border-radius: $borderRadius;
+        }
+    }
+    .field{
+        padding-bottom: 15px;
+        position: relative;
+        .error-message{
+            position: absolute;
+            top: 0;
+            right:0;
+            font-size: 12px;
+            color: #f00;
+            font-weight: bold;
+            font-style: italic;
+        }
+        &.error{
+            input{
+                border-color: #f00;
+            }
         }
     }
     .errors{
