@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 import { GoalDelete } from "./GoalDelete";
+import { FormInput } from "../Shared/FormInput";
+import { GoalFormOptionField } from "./GoalFormOptionField";
 
 export const GoalForm = () => {
   const {goalId} = useParams();
@@ -75,35 +77,34 @@ export const GoalForm = () => {
       setWeeklyRepetitionsShowing(false);
     }
   }
+  const goal_option_simple = {
+    id: "goal_type__simple",
+    title: "Simple",
+    description: "A basic, do it once per day goal.",
+    name: "goal_type",
+    validation: { required: true }
+  };
+  const goal_option_custom = {
+    id: "goal_type__custom",
+    title: "Custom repetitions",
+    description: "Set a custom amount of repetitions of this goal per week and add a custom amount to the weekly total every day.",
+    name: "goal_type",
+    validation: { required: true, onChange: showHideRepetitionsGoal }
+  };
 
   return (
     <section className="goal-form">
       <h1>{form.title}</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="field">
-          <label className="field__label" htmlFor="title">Daily title</label>
-          <input className="field__text" type="text" placeholder="Daily title" {...register("title", {required: true, maxLength: 80})} />
-        </div>
-        <div className="field">
-          <label className="field__label" htmlFor="title_weekly">Weekly title</label>
-          <input className="field__text" type="text" placeholder="Weekly title" {...register("title_weekly", {required: false, maxLength: 80})} />
-        </div>
+        <FormInput register={register} id="title" label="Daily title" validation={{required: true, maxLength: 80}} />
+        <FormInput register={register} id="title_weekly" label="Weekly title" validation={{required: true, maxLength: 80}} />
+
 
         <div className="field goal-type">
           <div className="field__label">Goal type</div>
-            <div className="goal-type__option">
-              <input {...register("goal_type", { required: true })} type="radio" id="goal_type__simple" value="Simple" />
-              <label htmlFor="goal_type__simple">
-                <strong>Simple</strong> <span>A basic, do it once per day goal</span>
-              </label>
-            </div>
-            <div className="goal-type__option">
-              <input {...register("goal_type", { required: true, onChange: showHideRepetitionsGoal })} type="radio" id="goal_type__custom" value="Custom repetitions" />
-              <label htmlFor="goal_type__custom">
-                <strong>Custom repetitions</strong> <span>Set a custom amount of repetitions of this goal per week and add a custom amount to the weekly total every day</span>
-              </label>
-            </div>
+            <GoalFormOptionField field={goal_option_simple} register={register} />
+            <GoalFormOptionField field={goal_option_custom} register={register} />
         </div>
 
         {weeklyRepetitionsShowing &&
