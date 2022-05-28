@@ -1,8 +1,16 @@
 .goal-form{
     h1{
         @include heading;
-        display: block;
         padding: 0 15px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button{
+            outline: none;
+            border: none;
+            background-color: transparent;
+            
+        }
     }
     .field{
         padding: 0 15px 15px;
@@ -18,10 +26,13 @@
         input.field__text{
             @include formInput;
         }
+        &.goal-type{
+            display: flex;
+            justify-content: space-between;
+        }
     }
-    .goal-type__option + .goal-type__option{
-        padding-top: 15px;
-    }
+    
+    
     
     .goal-type__option{
         display: flex;
@@ -31,6 +42,22 @@
         strong{
             display: block;
             padding-bottom: 5px;
+        }
+        label{
+            span{
+                display: none;
+            }
+        }
+    }
+    &--help-messages-showing{
+        .field.goal-type{
+            display: block;
+        }
+        .goal-type__option label span{
+            display: block;
+        }
+        .goal-type__option + .goal-type__option{
+            padding-top: 15px;
         }
     }
 }

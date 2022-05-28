@@ -5,6 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import { GoalDelete } from "./GoalDelete";
 import { FormInput } from "../Shared/FormInput";
 import { GoalFormOptionField } from "./GoalFormOptionField";
+import {Icon} from "../IcoMoon/Icon";
 
 export const GoalForm = () => {
   const {goalId} = useParams();
@@ -12,6 +13,7 @@ export const GoalForm = () => {
   const { register, getValues, handleSubmit, reset } = useForm();
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
   const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
+  const [helpMessagesShowing, setHelpMessagesShowing] = useState(false);
 
   let form = {
     submit: "Submit"
@@ -92,11 +94,22 @@ export const GoalForm = () => {
     validation: { required: true, onChange: showHideRepetitionsGoal }
   };
 
-  return (
-    <section className="goal-form">
-      <h1>{form.title}</h1>
+  let goalFormClass = "goal-form";
+  if(helpMessagesShowing)
+    goalFormClass = "goal-form goal-form--help-messages-showing";
+  
 
+  return (
+    <section className={goalFormClass}>
+      <h1>
+        {form.title}
+        <button onClick={() => setHelpMessagesShowing(!helpMessagesShowing)} title="Toggle help messages">
+          <Icon color={helpMessagesShowing ? '#f00' : '#ccc'} size="20px" icon='life-buoy' />
+        </button>
+      </h1>
+      
       <form onSubmit={handleSubmit(onSubmit)}>
+        
         <FormInput register={register} id="title" label="Daily title" validation={{required: true, maxLength: 80}} />
         <FormInput register={register} id="title_weekly" label="Weekly title" validation={{required: true, maxLength: 80}} />
 
@@ -108,10 +121,12 @@ export const GoalForm = () => {
         </div>
 
         {weeklyRepetitionsShowing &&
-          <div className="field">
-            <label className="field__label" htmlFor="weekly_repetitions_goal">Weekly repetitions goal</label>
-            <input type="number" className="field__text" placeholder="Weekly repetitions goal" {...register("weekly_repetitions_goal", {required: true, maxLength: 12})} />
-          </div>
+          <FormInput register={register} 
+            id="weekly_repetitions_goal" 
+            label="Weekly repetitions goal" 
+            validation={{required: true, maxLength: 12}}
+            type="number"
+            />
         }
 
         <div className="form-footer">
