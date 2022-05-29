@@ -4,6 +4,7 @@ import logo from '../../dailyDo.svg';
 import {Icon} from "../IcoMoon/Icon";
 import { Context } from "../Auth/UserContext";
 import FloatingMenu from "./FloatingMenu";
+import { PullToRefresh } from './PullToRefresh';
 
 export const Header = () => {
     const links = [
@@ -26,6 +27,7 @@ export const Header = () => {
     
     return (
         <header className="main">
+            <PullToRefresh />
             <NavLink to="/"><img src={logo} className="logo" alt="dailyDo logo" /></NavLink>
             {activeUser &&
             <nav>
