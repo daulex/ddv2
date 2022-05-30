@@ -6,7 +6,7 @@ import { Context } from "../Auth/UserContext";
 import FloatingMenu from "./FloatingMenu";
 import { PullToRefresh } from './PullToRefresh';
 
-export const Header = () => {
+const Header = () => {
     const links = [
         {
             to: "/my-account",
@@ -39,3 +39,4 @@ export const Header = () => {
     );
 
 }
+export default Header;

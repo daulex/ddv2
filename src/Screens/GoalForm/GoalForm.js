@@ -7,7 +7,7 @@ import { FormInput } from "../../Components/Shared/FormInput";
 import { GoalFormOptionField } from "./GoalFormOptionField";
 import {Icon} from "../../Components/IcoMoon/Icon";
 
-export const GoalForm = () => {
+const GoalForm = () => {
   const {goalId} = useParams();
   const navigate = useNavigate();
   const { register, getValues, handleSubmit, reset } = useForm();
@@ -137,3 +137,4 @@ export const GoalForm = () => {
     </section>
   );
 }
+export default GoalForm;

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../../Components/Shared/FormInput";
 
-export const RecordGoal = () => {
+const RecordGoal = () => {
   const navigate = useNavigate();
   const {recordId} = useParams();
   const { register, handleSubmit } = useForm();
@@ -62,3 +62,4 @@ export const RecordGoal = () => {
     </section>
   );
 }
+export default RecordGoal;

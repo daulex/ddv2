@@ -3,7 +3,7 @@ import {WeeklyGoals} from './WeeklyGoals';
 import axios from "axios";
 import {useState, useEffect} from "react";
 
-export const GoalList = ({logOut}) => {
+const GoalList = ({logOut}) => {
 
     const [goals, setGoals] = useState([]);
 
@@ -31,3 +31,4 @@ export const GoalList = ({logOut}) => {
         </section>
     );
 }
+export default GoalList;

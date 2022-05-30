@@ -9,14 +9,15 @@ import axios from "axios";
 import {Context}    from './Components/Auth/UserContext.js';
 import './App.scss';
 
-import {Header} from './Components/Header/Header';
+import Header from './Components/Header/Header';
 import AuthContainer from './Components/Auth/AuthContainer';
 import VerifyEmail from './Components/Auth/VerifyEmail';
 
-import {GoalList} from './Screens/GoalList/GoalList';
-import {GoalForm} from './Screens/GoalForm/GoalForm';
-import {RecordGoal} from "./Screens/RecordGoal/RecordGoal";
+import GoalList from './Screens/GoalList/GoalList';
+import GoalForm from './Screens/GoalForm/GoalForm';
+import RecordGoal from "./Screens/RecordGoal/RecordGoal";
 import MyAccount from "./Screens/MyAccount/MyAccount";
+import HistoryScreen from "./Screens/HistoryScreen";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
           <Routes>
             <Route path="/" element={<GoalList logOut={logOut} />} />
             <Route path="new-goal" element={<GoalForm />} />
+            <Route path="history" element={<HistoryScreen />} />
             <Route path="my-account" element={<MyAccount setActiveUser={setActiveUser} />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />
