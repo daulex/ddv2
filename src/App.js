@@ -4,17 +4,19 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import axios from "axios";
 
+import {Context}    from './Components/Auth/UserContext.js';
 import './App.scss';
+
 import {Header} from './Components/Header/Header';
-import {GoalList} from './Components/GoalList/GoalList';
-import {GoalForm} from './Components/GoalForm/GoalForm';
-import {RecordGoal} from "./Components/RecordGoal/RecordGoal";
 import AuthContainer from './Components/Auth/AuthContainer';
 import VerifyEmail from './Components/Auth/VerifyEmail';
-import {Context}    from './Components/Auth/UserContext.js';
-import axios from "axios";
-import MyAccount from "./Components/MyAccount/MyAccount";
+
+import {GoalList} from './Screens/GoalList/GoalList';
+import {GoalForm} from './Screens/GoalForm/GoalForm';
+import {RecordGoal} from "./Screens/RecordGoal/RecordGoal";
+import MyAccount from "./Screens/MyAccount/MyAccount";
 
 
 function App() {

@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DeleteButton from "../Shared/DeleteButton/DeleteButton";
+
+import DeleteButton from "../../Components/Shared/DeleteButton";
 
 const MyAccount = ({setActiveUser}) => {
   const navigate = useNavigate();
@@ -68,7 +69,6 @@ const MyAccount = ({setActiveUser}) => {
           <input type="submit" disabled={!submitButtonIsActive} value={submitButton} />
         </div>
       </form>
-
       <DeleteButton runDelete={runDelete} label="Delete my account"/>
     </section>
   );

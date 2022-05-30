@@ -12,10 +12,10 @@ export const Header = () => {
             to: "/my-account",
             label: "My account"
         },
-        // {
-        //     to: "/tips",
-        //     label: "Tips"
-        // }
+        {
+            to: "/history",
+            label: "History"
+        }
     ];
     const [activeUser, setActiveUser] = useContext(Context);
     const logOut = () => {

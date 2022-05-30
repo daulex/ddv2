@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DeleteButton from "../Shared/DeleteButton/DeleteButton";
+import DeleteButton from "../Components/Shared/DeleteButton/DeleteButton";
 
 
 export const GoalDelete = (props) => {

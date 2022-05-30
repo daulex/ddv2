@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import {useNavigate, useParams} from "react-router-dom";
 import { GoalDelete } from "./GoalDelete";
-import { FormInput } from "../Shared/FormInput";
+import { FormInput } from "../../Components/Shared/FormInput";
 import { GoalFormOptionField } from "./GoalFormOptionField";
-import {Icon} from "../IcoMoon/Icon";
+import {Icon} from "../../Components/IcoMoon/Icon";
 
 export const GoalForm = () => {
   const {goalId} = useParams();

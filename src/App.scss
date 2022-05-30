@@ -30,10 +30,10 @@ input[disabled]{
 @import './Components/Auth/Auth.scss';
 @import './Components/Header/Header.scss';
 @import './Components/Header/FloatingMenu.scss';
-@import './Components/GoalList/GoalList.scss';
-@import './Components/GoalList/GoalList.scss';
-@import './Components/GoalForm/GoalForm';
-@import './Components/RecordGoal/RecordGoal.scss';
-@import './Components/MyAccount/MyAccount.scss';
 
 @import './Components/Shared/DeleteButton/DeleteButton';
+
+@import './Screens/GoalList/GoalList.scss';
+@import './Screens/GoalForm/GoalForm';
+@import './Screens/RecordGoal/RecordGoal.scss';
+@import './Screens/MyAccount/MyAccount.scss';

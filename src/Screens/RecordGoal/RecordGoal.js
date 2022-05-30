@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { FormInput } from "../../Components/Shared/FormInput";
+
 export const RecordGoal = () => {
   const navigate = useNavigate();
   const {recordId} = useParams();
@@ -51,12 +53,7 @@ export const RecordGoal = () => {
           <span className="label">Add repetitions to goal</span>
           <span className="title">{title}</span>
         </div>
-        <div className="field">
-          <label className="field__label" htmlFor="amount">Amount to add</label>
-          <input className="field__text" id="amount" type="number" placeholder="Amount to add" {...register("amount", {required: true, maxLength: 80})} />
-        </div>
-
-
+        <FormInput register={register} id="amount" label="Amount to add" validation={{required: true, maxLength: 80}} />
 
         <div className="form-footer">
           <input type="submit" disabled={!submitButtonIsActive} value={submitButton} />
