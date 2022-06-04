@@ -1,6 +1,6 @@
 import { key_to_date } from "../../utilities";
 
-const HistoryListItem = ({stamp, goal, days}) => {
+const SingleGoalListItem = ({stamp, goal, days}) => {
     
     return (
         <div className="goal__history--week" key={goal.ID+"--"+stamp}>
@@ -16,4 +16,4 @@ const HistoryListItem = ({stamp, goal, days}) => {
         </div>
     );
 }
-export default HistoryListItem;
+export default SingleGoalListItem;

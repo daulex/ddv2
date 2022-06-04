@@ -18,6 +18,7 @@ import GoalForm from './Screens/GoalForm/GoalForm';
 import RecordGoal from "./Screens/RecordGoal/RecordGoal";
 import MyAccount from "./Screens/MyAccount/MyAccount";
 import HistoryScreen from "./Screens/HistoryScreen";
+import HistoryItemScreen from "./Screens/HistoryScreen/HistoryItemScreen";
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
             <Route path="/" element={<GoalList logOut={logOut} />} />
             <Route path="new-goal" element={<GoalForm />} />
             <Route path="history" element={<HistoryScreen />} />
+            <Route path="/history/:goalId" element={<HistoryItemScreen />} />
             <Route path="my-account" element={<MyAccount setActiveUser={setActiveUser} />} />
             <Route path="/goal/edit/:goalId" element={<GoalForm />} />
             <Route path="/record/:recordId" element={<RecordGoal />} />

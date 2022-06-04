@@ -1,0 +1,64 @@
+.history-list{
+    padding-left: 15px;
+    padding-right: 15px;
+    h1{
+        @include heading;
+    }
+
+    .goal{
+        padding-top: 15px;
+        & > button, & > a{
+            text-decoration: none;
+            padding: 15px;
+            border:none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            font-weight: 600;
+            align-items: center;
+            background: #eee;
+            color: #000;
+            border-radius: $borderRadius;
+            // strong{}
+            // em{}
+            // span{
+            //     display: block;
+            //     width: 100%;
+            // }
+        }
+
+        &.weekly{
+            position: relative;
+            overflow: hidden;
+            span{
+                z-index:2;
+            }
+            .weekly__bar{
+                position: absolute;
+                left:0;
+                background: #f7f7f7;
+                height: 50px;
+                z-index: 1;
+                transform: skew(-25deg);
+                &::before{
+                    content:" ";
+                    background-color: #f7f7f7;
+                    display: block;
+                    position: absolute;
+                    left:-20px;
+                    top:0;
+                    height: 50px;
+                    width:20px;
+                }
+            }
+        }
+    }
+    &__weekly{
+        padding-top: 30px;
+        h2{
+            @include heading;
+        }
+    }
+    
+}
