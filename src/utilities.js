@@ -31,10 +31,11 @@ export function findGetParameter(parameterName) {
 
 
 export function key_to_date(key){
-    let res = key.split("_")[1];
-    res = res.slice(0,4) +"-"+ res.slice(4,6) +"-"+ res.slice(6,8);
-    res = new Date( Date.parse(res) );
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let res = key.split("_");
+
+    res = new Date( Date.parse(`${res[1]}-${res[2]}-${res[3]}`) );
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
     return res.toLocaleDateString(undefined, options);
 }

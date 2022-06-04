@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {useEffect, useState} from "react";
+import HistoryListItem from './HistoryListItem';
 
 const HistoryScreen = () => {
     const [goals, setGoals] = useState([]);
@@ -14,7 +15,6 @@ const HistoryScreen = () => {
                 url: 'goals-history'
             }).then(res => {
                 const data = JSON.parse(res.data);
-                // console.log(data);
                 setGoals(data);
             });
         
@@ -28,21 +28,9 @@ const HistoryScreen = () => {
                     return(
                     <div className="goal" key={"gid-"+goal.ID}>
                         <h3>{goal.title} <em>({goal.title_weekly})</em><br/>{goal.goal_type}</h3>
-                        {goal.history && Object.keys(goal.history).sort().map(key => {
-                            return (
-                                <div className="goal__history--week" key={"gh-"+key}>
-                                    <h4>Week starting {key}</h4>
-                                    {[0,1,2,3,4,5,6].map(day => {
-                                        return(
-                                            <div className="goal__history--day" key={"ghd-"+day}>
-                                                <span>{days[day]}: </span> 
-                                                <span>{goal.history[key][day]}</span>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            )
-                        })}
+                        {goal.history && Object.keys(goal.history).sort().map(key => 
+                        <HistoryListItem key={key} stamp={key} goal={goal} days={days} />
+                        )}
                     </div>
                     )
                 })}
