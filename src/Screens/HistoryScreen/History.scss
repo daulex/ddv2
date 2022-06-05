@@ -11,15 +11,25 @@
             text-decoration: none;
             padding: 15px;
             border:none;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            display: block;
+            text-align: left;
             width: 100%;
             font-weight: 600;
-            align-items: center;
             background: #eee;
             color: #000;
             border-radius: $borderRadius;
+            position: relative;
+            strong, em, span{
+                display: block;
+            }
+            span{
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 12px;
+                color: $white;
+                text-shadow: 0 0 20px rgba(0,0,0,.7);
+            }
             // strong{}
             // em{}
             // span{

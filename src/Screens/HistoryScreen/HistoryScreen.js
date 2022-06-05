@@ -27,7 +27,7 @@ const HistoryScreen = () => {
                         <NavLink to={"/history/" + goal.ID}>
                             <strong className="goal__title">{goal.title}</strong> 
                             <em>{goal.title_weekly}</em> 
-                            <span>{goal.goal_type}</span>
+                            <span>{goal.goal_type.split(" ")[0]}</span>
                         </NavLink>
                     </div>
                     )
