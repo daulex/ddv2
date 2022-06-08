@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import { useLocation, useNavigate, useParams} from "react-router-dom";
 import { GoalDelete } from "./GoalDelete";
 import { FormInput } from "../../Components/Shared/FormInput";
 import { GoalFormOptionField } from "./GoalFormOptionField";
@@ -9,12 +9,16 @@ import {Icon} from "../../Components/IcoMoon/Icon";
 
 const GoalForm = () => {
   const {goalId} = useParams();
+
   const navigate = useNavigate();
   const { register, getValues, handleSubmit, reset } = useForm();
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
   const [weeklyRepetitionsShowing, setWeeklyRepetitionsShowing] = useState(false);
   const [helpMessagesShowing, setHelpMessagesShowing] = useState(false);
 
+  const {state} = useLocation();
+  const goal = state !== null ? state.goal : null;
+  
   let form = {
     submit: "Submit"
   };
@@ -34,25 +38,29 @@ const GoalForm = () => {
   }
 
   const [submitButton, setSubmitButton] = useState(form.submit);
-
+  const resetFormData = (data) => {
+    reset({
+      title: data.title,
+      title_weekly: data.title_weekly,
+      goal_type: data.goal_type,
+      weekly_repetitions_goal: data.weekly_repetitions_goal
+    });
+    if(data.goal_type !== "Simple"){
+      setWeeklyRepetitionsShowing(true);
+    }
+  }
   useEffect(() => {
-
+    
     if(form.type === "edit"){
-      axios({
-        method: 'get',
-        url: form.url
-      }).then(res => {
-        const data = JSON.parse(res.data);
-        reset({
-          title: data.title,
-          title_weekly: data.title_weekly,
-          goal_type: data.goal_type,
-          weekly_repetitions_goal: data.weekly_repetitions_goal
-        });
-        if(data.goal_type !== "Simple"){
-          setWeeklyRepetitionsShowing(true);
-        }
-      });
+      if(goal !== null){
+        resetFormData(goal);
+      }else{
+        axios({
+          method: 'get',
+          url: form.url
+        }).then(res => resetFormData(JSON.parse(res.data)) );
+      }
+      
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

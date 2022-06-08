@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,9 @@ const RecordGoal = () => {
   const [title, setTitle] = useState("Loading...");
   const [submitButtonIsActive, setSubmitButtonIsActive] = useState(true);
 
+  const {state} = useLocation();
+  const goal = state !== null ? state.goal : null;
+
   let form = {
     submit: "Save",
     getUrl: "goal/" + recordId,
@@ -20,16 +23,18 @@ const RecordGoal = () => {
   };
   const [submitButton, setSubmitButton] = useState(form.submit);
 
-
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: form.getUrl
-    }).then(res => {
-      const data = JSON.parse(res.data);
-      setTitle(data.title);
-    });
-
+    if(goal !== null){
+      setTitle(goal.title);
+    }else{
+      axios({
+        method: 'get',
+        url: form.getUrl
+      }).then(res => {
+        const data = JSON.parse(res.data);
+        setTitle(data.title);
+      });
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = data => {

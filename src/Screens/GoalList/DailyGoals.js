@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import { ButtonGoalRecordCustom } from "./ButtonGoalRecordCustom";
 import {ButtonGoalRecordSimple} from "./ButtonGoalRecordSimple";
 
 export const DailyGoals = ({goals, setGoals}) => {
@@ -28,13 +28,7 @@ export const DailyGoals = ({goals, setGoals}) => {
                         {goal.goal_type === "Simple" ?
                             <ButtonGoalRecordSimple setGoalStatus={setGoalStatus} goal={goal}/>
                             :
-                            <NavLink to={"/record/" + goal.ID}>
-                                <span className="goal__title">{goal.title}</span>
-                                <div className="today">
-                                    <span className="count">{goal.today}</span>
-                                    today
-                                </div>
-                            </NavLink>
+                            <ButtonGoalRecordCustom goal={goal} />
                         }
 
                     </div>
