@@ -17,7 +17,7 @@ const GoalForm = () => {
   const [helpMessagesShowing, setHelpMessagesShowing] = useState(false);
 
   const {state} = useLocation();
-  const goal = state !== null ? state.goal : null;
+  let goal = state !== null ? state.goal : null;
   
   let form = {
     submit: "Submit"
@@ -27,7 +27,7 @@ const GoalForm = () => {
     form.title = "Edit goal";
     form.type = "edit";
     form.method = "put";
-    form.submit = "Update goal";
+    form.submit = "Save";
     form.url = "goal/" + goalId;
   }else{
     form.title = "New goal";
@@ -35,6 +35,15 @@ const GoalForm = () => {
     form.method = "post";
     form.submit = "Create goal";
     form.url = "goal";
+    if(getValues('title')){
+      reset({
+        title: null,
+        title_weekly: null,
+        goal_type: "Simple",
+        weekly_repetitions_goal: null
+      });
+      setWeeklyRepetitionsShowing(false);
+    }
   }
 
   const [submitButton, setSubmitButton] = useState(form.submit);
@@ -50,7 +59,6 @@ const GoalForm = () => {
     }
   }
   useEffect(() => {
-    
     if(form.type === "edit"){
       if(goal !== null){
         resetFormData(goal);
@@ -60,7 +68,6 @@ const GoalForm = () => {
           url: form.url
         }).then(res => resetFormData(JSON.parse(res.data)) );
       }
-      
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

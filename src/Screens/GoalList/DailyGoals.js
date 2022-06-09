@@ -21,7 +21,7 @@ export const DailyGoals = ({goals, setGoals}) => {
 
     return (
         <section className="goallist__daily">
-            <h1>Daily goals</h1>
+            <h1>Today</h1>
             <section className="in-progress">
                 {goals.map(goal => (
                     <div className={"goal " + goal.goal_type.toLowerCase()[0]} key={goal.ID}>

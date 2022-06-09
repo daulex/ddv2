@@ -2,8 +2,9 @@
   padding: 15px;
   &__trigger button{
     @include button;
-    background: $text_strong;
-    color: $white;
+    background: transparent;
+    color: red;
+    font-size: .8rem;
     border-radius: $borderRadius;
   }
   &__confirmation{
@@ -14,6 +15,7 @@
     color: $text_strong;
     justify-content: center;
     align-items: center;
+    border-radius: $borderRadius;
     span, button{
       margin: 7px;
     }
