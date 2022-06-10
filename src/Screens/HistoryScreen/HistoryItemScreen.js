@@ -2,25 +2,19 @@ import {useParams} from "react-router-dom";
 import axios from 'axios';
 import {useEffect, useState} from "react";
 import SingleGoalListItem from './SingleGoalListItem';
+import { days } from "../../utilities";
 
 const HistoryScreen = () => {
     const [goal, setGoal] = useState([]);
     const {goalId} = useParams();
-    
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
     useEffect(() => {
-        
-            axios({
-                method: 'get',
-                url: 'goals-history/' + goalId
-            }).then(res => {
-                const data = JSON.parse(res.data);
-                setGoal(data);
-            });
-        
-      }, []); // eslint-disable-line react-hooks/exhaustive-deps
-    console.log(goal);
+        axios({
+            method: 'get',
+            url: 'goals-history/' + goalId
+        }).then(res => setGoal(JSON.parse(res.data)));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    
     return(
         <section className="history-screen">
             <h1>History Item</h1>

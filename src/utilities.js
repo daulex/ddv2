@@ -40,4 +40,5 @@ export function key_to_date(key){
     return res.toLocaleDateString(undefined, options);
 }
 
-
+// export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

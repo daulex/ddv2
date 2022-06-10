@@ -1,0 +1,20 @@
+.edit-week{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    h4{
+        display: block;
+        width: 100%;
+    }
+    .edit-day{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        &__checkbox{
+            input{
+                margin: 0 auto;
+                display: block;
+            }
+        }
+    }
+}

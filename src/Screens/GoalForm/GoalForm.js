@@ -6,6 +6,7 @@ import { GoalDelete } from "./GoalDelete";
 import { FormInput } from "../../Components/Shared/FormInput";
 import { GoalFormOptionField } from "./GoalFormOptionField";
 import {Icon} from "../../Components/IcoMoon/Icon";
+import GoalFormHistory from "./GoalFormHistory/GoalFormHistory";
 
 const GoalForm = () => {
   const {goalId} = useParams();
@@ -18,6 +19,18 @@ const GoalForm = () => {
 
   const {state} = useLocation();
   let goal = state !== null ? state.goal : null;
+
+  const resetFormData = (data) => {
+    reset({
+      title: data.title,
+      title_weekly: data.title_weekly,
+      goal_type: data.goal_type,
+      weekly_repetitions_goal: data.weekly_repetitions_goal
+    });
+    if(data.goal_type !== "Simple"){
+      setWeeklyRepetitionsShowing(true);
+    }
+  }
   
   let form = {
     submit: "Submit"
@@ -29,6 +42,10 @@ const GoalForm = () => {
     form.method = "put";
     form.submit = "Save";
     form.url = "goal/" + goalId;
+
+    if(goal !== null && getValues('title') === null){
+      resetFormData(goal);
+    }
   }else{
     form.title = "New goal";
     form.type = "new";
@@ -47,17 +64,7 @@ const GoalForm = () => {
   }
 
   const [submitButton, setSubmitButton] = useState(form.submit);
-  const resetFormData = (data) => {
-    reset({
-      title: data.title,
-      title_weekly: data.title_weekly,
-      goal_type: data.goal_type,
-      weekly_repetitions_goal: data.weekly_repetitions_goal
-    });
-    if(data.goal_type !== "Simple"){
-      setWeeklyRepetitionsShowing(true);
-    }
-  }
+  
   useEffect(() => {
     if(form.type === "edit"){
       if(goal !== null){
@@ -86,7 +93,6 @@ const GoalForm = () => {
     });
   };
 
-
   const showHideRepetitionsGoal = () => {
     if(getValues('goal_type') === "Custom repetitions"){
       setWeeklyRepetitionsShowing(true);
@@ -94,6 +100,7 @@ const GoalForm = () => {
       setWeeklyRepetitionsShowing(false);
     }
   }
+
   const goal_option_simple = {
     id: "goal_type__simple",
     title: "Simple",
@@ -122,6 +129,8 @@ const GoalForm = () => {
           <Icon color={helpMessagesShowing ? '#f00' : '#ccc'} size="20px" icon='life-buoy' />
         </button>
       </h1>
+
+      {form.type === "edit" && <GoalFormHistory id={goal.ID} />}
       
       <form onSubmit={handleSubmit(onSubmit)}>
         

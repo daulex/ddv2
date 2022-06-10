@@ -27,14 +27,15 @@ button, input[type=submit]{
 input[disabled]{
   opacity: .3;
 }
-@import './Components/Auth/Auth.scss';
-@import './Components/Header/Header.scss';
-@import './Components/Header/FloatingMenu.scss';
+@import './Components/Auth/Auth';
+@import './Components/Header/Header';
+@import './Components/Header/FloatingMenu';
 
 @import './Components/Shared/DeleteButton/DeleteButton';
 
-@import './Screens/GoalList/GoalList.scss';
+@import './Screens/GoalList/GoalList';
 @import './Screens/GoalForm/GoalForm';
-@import './Screens/RecordGoal/RecordGoal.scss';
-@import './Screens/MyAccount/MyAccount.scss';
-@import './Screens/HistoryScreen/History.scss';
+@import './Screens/GoalForm/GoalFormHistory/GoalFormHistory';
+@import './Screens/RecordGoal/RecordGoal';
+@import './Screens/MyAccount/MyAccount';
+@import './Screens/HistoryScreen/History';
