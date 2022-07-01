@@ -42,3 +42,14 @@ export function key_to_date(key){
 
 // export const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+// motivational quotes
+export const notices_praise = [
+    "Amazing! You've completed your goal.",
+    "You're doing great!",
+    "One step closer to your goal!",
+    "Keep it up!",
+    "Kick ass",
+    "You're awesome!",
+    "Sweet!"
+];
