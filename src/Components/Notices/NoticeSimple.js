@@ -1,7 +1,7 @@
 
 import { notices_praise } from "../../utilities";
 const NoticeSimple = () => {
-    window.navigator.vibrate(300);
+    if('vibrate' in navigator) window.navigator.vibrate(300);
     const praise = notices_praise[Math.floor(Math.random() * notices_praise.length)];
     return(
         <div className="notice">

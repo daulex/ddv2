@@ -2,10 +2,11 @@ import axios from "axios";
 import {useState} from "react";
 import NoticeSimple from "../../Components/Notices/NoticeSimple";
 
+
 export const ButtonGoalRecordSimple = ({goal, setGoalStatus}) => {
     const buttonClass = parseInt(goal.today) === 1 ? "complete" : "incomplete";
     const [showNotice, setShowNotice] = useState(false);
-
+    
     const handleButtonClick = () => {
         setGoalStatus([goal.ID, buttonClass === "complete" ? "incomplete" : "complete"]);
         if(buttonClass === "incomplete") {
