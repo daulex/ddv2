@@ -123,14 +123,14 @@ const GoalForm = () => {
 
   return (
     <section className={goalFormClass}>
+      {form.type === "edit" && <GoalFormHistory id={goal.ID} />}
+      
       <h1>
         {form.title}
         <button onClick={() => setHelpMessagesShowing(!helpMessagesShowing)} title="Toggle help messages">
           <Icon color={helpMessagesShowing ? '#f00' : '#ccc'} size="20px" icon='life-buoy' />
         </button>
       </h1>
-
-      {form.type === "edit" && <GoalFormHistory id={goal.ID} />}
       
       <form onSubmit={handleSubmit(onSubmit)}>
         

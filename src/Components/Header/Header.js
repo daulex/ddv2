@@ -36,7 +36,7 @@ const Header = () => {
             {activeUser &&
             <nav>
                 <button onClick={handleNewGoalClick} className="new-goal">
-                    <Icon color='#000' size="20px" icon='plus-square' />
+                    <Icon size="20px" icon='plus-square' />
                 </button>
                 <FloatingMenu links={links} logOut={logOut} />
             </nav>

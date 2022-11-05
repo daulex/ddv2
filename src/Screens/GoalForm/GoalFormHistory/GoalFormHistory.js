@@ -22,6 +22,7 @@ const GoalFormHistory = ({id}) => {
 
     return(
         <div className="goal-form-history">
+            <h1>Edit history</h1>
         {
             log.map(key => <GoalFormHistoryEdit key={key} week={key} goal={goal} />) 
         }

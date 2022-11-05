@@ -2,18 +2,34 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 0 15px 20px;
     h4{
         display: block;
         width: 100%;
+        margin: 0 0 10px;
+        font-size: 12px;
     }
     .edit-day{
         display: flex;
         flex-direction: column;
         align-content: center;
+        background: #eee;
+        padding: 6px 8px;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 3px;
+        opacity: .3;
+        box-shadow: 0 0 0 0 rgba(0,0,0,.2);
+        transition: all 200ms ease-in-out;
+        text-align: center;
+        &.checked{
+            opacity: 1;
+            box-shadow: 0 3px 10px 0 rgba(0,0,0,.2);
+        }
         &__checkbox{
+            padding-top: 5px;
             input{
-                margin: 0 auto;
-                display: block;
+                display: none;
             }
         }
     }
